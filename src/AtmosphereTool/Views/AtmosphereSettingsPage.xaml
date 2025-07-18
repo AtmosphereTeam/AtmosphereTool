@@ -1,0 +1,137 @@
+﻿<Page
+    x:Class="AtmosphereTool.Views.AtmosphereSettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:vm="using:AtmosphereTool.ViewModels"
+    xmlns:helpers="using:AtmosphereTool.Helpers"
+    mc:Ignorable="d">
+    <ScrollView Padding="24,14,24,0">
+        <Grid x:Name="ContentArea">
+            <StackPanel>
+                <StackPanel>
+                    <controls:SettingsExpander x:Name="AtmosphereConfigHeader" Header="Atmosphere Configuration" Description="Change Atmosphere Configuration">
+                        <FontIcon Glyph="&#xE70F;"/>
+                        <controls:SettingsExpander.Items>
+                            <controls:SettingsCard x:Name="DefenderCard" Header="Defender">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE83D;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <Button x:Name="ToggleDefender" Tag="ToggleDefender" Content="Toggle Defender" Click="ToggleWinDefender"/>
+                            </controls:SettingsCard>
+                            <controls:SettingsCard x:Name="MitigationsHeader" Header="Mitigations">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xF259;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="WindowsMitigations" Tag="WindowsMitigations" Content="Default Mitigations" ToolTipService.ToolTip="This button enables default Windows mitigations." Click="HardwareMitigations"/>
+                                    <Button x:Name="DisableMitigations" Tag="DisableMitigations" Content="Disable Mitigations" ToolTipService.ToolTip="This button disables all mitigations." Click="HardwareMitigations" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </controls:SettingsCard>
+                            <controls:SettingsCard x:Name="AutoUpdatesHeader" Header="Automatic Windows Updates" Description="Updates are important for security, you'll get update notifications regardless.">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE895;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <ToggleSwitch x:Name="ToggleUpdates" Tag="ToggleUpdates" Toggled="AutomaticUpdates"/>
+                            </controls:SettingsCard>
+                            <controls:SettingsCard x:Name="AtmosphereUIModsHeader" Header="Atmosphere UI Modifications">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE8A1;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <ToggleSwitch x:Name="AtmosphereUI" Tag="AtmosphereUI" Toggled="ToggleUIModification" ToolTipService.ToolTip="You can toggle ui components form troubleshooting."/>
+                            </controls:SettingsCard>
+                            <controls:SettingsCard x:Name="HibernationHeader" Header="Hibernation">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE708;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <ToggleSwitch x:Name="ToggleHibernation" Tag="ToggleHibernation" Toggled="HibernationToggle"/>
+                            </controls:SettingsCard>
+                            <controls:SettingsCard x:Name="PowerSavingHeader" Header="Power Saving">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xEBC0;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <ToggleSwitch x:Name="TogglePS" Tag="TogglePS" Toggled="TogglePowerSaving"/>
+                            </controls:SettingsCard>
+                            <controls:SettingsCard x:Name="VBSHeader" Header="Configure Virtualization Based Security">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xF0B2;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <Button x:Name="ConfigVBS" Tag="ConfigVBS" Content="Configure" Click="ConfigureVBSClick"/>
+                            </controls:SettingsCard>
+                            <controls:SettingsCard x:Name="WinStartMenuHeader" Header="Start Menu Modifications">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE8FC;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <StackPanel Orientation="Horizontal">
+                                    <ProgressRing x:Name="SMMProgressRing" IsActive="False" Width="20" Height="20" Margin="0,0,10,0"/>
+                                    <ToggleSwitch x:Name="ToggleStartMenu" Tag="ToggleStartMenu" Toggled="ToggleStartMenuModifications"/>
+                                </StackPanel>
+                            </controls:SettingsCard>
+                            <controls:SettingsCard x:Name="OldContextMenuHeader" Header="Old Context Menus">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xEE40;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <ToggleSwitch x:Name="OldContextMenu" Tag="OldContextMenu" Toggled="ToggleOldContextMenu"/>
+                            </controls:SettingsCard>
+                        </controls:SettingsExpander.Items>
+                    </controls:SettingsExpander>
+                    <controls:SettingsExpander x:Name="TroubleshootingHeader" Header="Troubleshooting" Description="Troubleshoot AtmosphereOS / Windows"  Margin="0,5,0,0">
+                        <FontIcon Glyph="&#xE90F;"/>
+                        <controls:SettingsExpander.Items>
+                            <controls:SettingsCard x:Name="TranslucentFlyoutsHeader" Header="Translucent Flyouts">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE7C4;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <StackPanel Orientation="Horizontal">
+                                    <ToggleSwitch x:Name="TranslucentFlyouts" Tag="TranslucentFlyouts" Toggled="TranslucentFlyoutsToggle" Margin="0,0,10,0"/>
+                                    <Button x:Name="TFInfo" Tag="TFInfo" Width="44" Height="32">
+                                        <Button.Flyout>
+                                            <Flyout>
+                                                <StackPanel>
+                                                    <TextBlock x:Name="TFInfoText" Style="{ThemeResource BaseTextBlockStyle}" Text="If you're experiencing explorer crashes or games not launching &#x0a;and anti-cheat problems then try disabling translucent flyouts." Margin="0,0,0,12" />
+                                                </StackPanel>
+                                            </Flyout>
+                                        </Button.Flyout>
+                                        <FontIcon Glyph="&#xE946;"/>
+                                    </Button>
+                                </StackPanel>
+                            </controls:SettingsCard>
+                            <controls:SettingsCard x:Name="MicaExplorerHeader" Header="Translucent Explorer">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xEC50;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <ToggleSwitch x:Name="MicaExplorer" Tag="MicaExplorer" Toggled="TranslucentExplorerToggle"/>
+                            </controls:SettingsCard>
+                            <controls:SettingsCard x:Name="ConfigServicesHeader" Header="Services">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xF8B0;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <Button x:Name="Services" Tag="Services" Content="Configure Services" Click="ConfigureServicesClick"/>
+                            </controls:SettingsCard>
+                            <controls:SettingsCard x:Name="ConfigTelemetryHeader" Header="Telemetry">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE704;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <Button x:Name="Telemetry" Tag="Telemetry" Content="Configure Telemetry" Click="ConfigureTelemetryClick"/>
+                            </controls:SettingsCard>
+                            <controls:SettingsCard x:Name="RepairWindowsHeader" Header="Repair Windows">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE90F;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <Button Name="RepairComponents" Tag="RepairComponents" Content="Repair Windows Components" Click="RepairWindowsClick"/>
+                            </controls:SettingsCard>
+                            <controls:SettingsCard x:Name="UninstallAtmosphereHeader" Header="Uninstall Atmosphere" Visibility="Collapsed">
+                                <controls:SettingsCard.HeaderIcon>
+                                    <FontIcon Glyph="&#xE7A7;"/>
+                                </controls:SettingsCard.HeaderIcon>
+                                <Button Name="RemoveOS" Tag="RemoveOS" Content="Uninstall" Click="UninstallAtmosphereClick"/>
+                            </controls:SettingsCard>
+                        </controls:SettingsExpander.Items>
+                    </controls:SettingsExpander>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </ScrollView>
+</Page>

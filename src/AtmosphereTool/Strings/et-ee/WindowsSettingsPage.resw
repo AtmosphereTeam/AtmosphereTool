@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="settingsCardHeader" xml:space="preserve">
+    <value>Muuda Kasutaja Sätteid</value>
+  </data>
+  <data name="settingsCardDescription" xml:space="preserve">
+    <value>Muuda sätteid mis on seotud kasutajatega.</value>
+  </data>
+  <data name="ChangeUserHeader" xml:space="preserve">
+    <value>Muuda Kasutaja Nime</value>
+  </data>
+  <data name="ChangeUser" xml:space="preserve">
+    <value>Muuda Kasutaja Nime</value>
+  </data>
+  <data name="ChangeUPassword" xml:space="preserve">
+    <value>Muuda Kasutaja Parooli</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Muuda Parooli</value>
+  </data>
+  <data name="PasswordIBlock" xml:space="preserve">
+    <value>Kui soovite muuta teiste kasutajate parooli 
+siis vajuta all olevat nuppu.</value>
+  </data>
+  <data name="ChangeOtherPass" xml:space="preserve">
+    <value>Muuda Teiste Kasutajate Paroole</value>
+  </data>
+  <data name="ChangePfp" xml:space="preserve">
+    <value>Muuda Profiili Pilti</value>
+  </data>
+  <data name="PfpInfoText" xml:space="preserve">
+    <value>Sa pead andma tee pildini. 
+Failivalija ei tööta. Vabandust</value>
+  </data>
+  <data name="ExplorerButton" xml:space="preserve">
+    <value>Ava Explorer</value>
+  </data>
+  <data name="CreateNewHeader" xml:space="preserve">
+    <value>Loo uus kasutaja</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>Loo Uus Kasutaja</value>
+  </data>
+  <data name="SystemExpanderHeader" xml:space="preserve">
+    <value>Süsteemi Sätted</value>
+  </data>
+  <data name="SystemExpanderDescription" xml:space="preserve">
+    <value>Muuda Süsteemi Sätteid</value>
+  </data>
+  <data name="EnhancedSec" xml:space="preserve">
+    <value>Täiustatud Turvalisus</value>
+  </data>
+  <data name="EnableEnchancedSec" xml:space="preserve">
+    <value>Täiusta Turvalisus</value>
+  </data>
+  <data name="DisableEnchancedSec" xml:space="preserve">
+    <value>Tavaline Turvalisus</value>
+  </data>
+  <data name="SecIText" xml:space="preserve">
+    <value>Täiustatud turvalisus võimaldab kõrgendatud õigustega 
+asjade käitamiseks määrata teistsuguse parooli.</value>
+  </data>
+  <data name="HideUser" xml:space="preserve">
+    <value>Peida kasutajanimed siiselogimisel</value>
+  </data>
+  <data name="Hibernation" xml:space="preserve">
+    <value>Võime salvestada tööseisundit ja lülitada arvuti välja</value>
+    <comment>In Estonian it means 
+winter sleep </comment>
+  </data>
+  <data name="VBSHeader" xml:space="preserve">
+    <value>Visual Basic Skript</value>
+  </data>
+  <data name="NotiCenter" xml:space="preserve">
+    <value>Teavituste Keskus</value>
+  </data>
+  <data name="Notification" xml:space="preserve">
+    <value>Teavitused</value>
+  </data>
+  <data name="VerifyAtmos" xml:space="preserve">
+    <value>Kontrolli Atmosphere-i paigaldust</value>
+  </data>
+  <data name="VerifyAtmosphere" xml:space="preserve">
+    <value>Kontrolli</value>
+  </data>
+  <data name="TopTitle" xml:space="preserve">
+    <value>Windowsi Sätted</value>
+  </data>
+  <data name="DisEnhancedSecConfirm_Title" xml:space="preserve">
+    <value>Kas soovite täiustatud turvalisuse eemaldada?</value>
+  </data>
+  <data name="DisEnhancedSecConfirm_Content" xml:space="preserve">
+    <value>Täiustatud turvalisuse eemaldamine võimaldab teil käivitada kõrgendatud õigustega rakendusi oma sisselogimisparooliga.</value>
+  </data>
+  <data name="DisEnhancedSecConfirm_Primary" xml:space="preserve">
+    <value>Eemalda</value>
+  </data>
+  <data name="Dialog_PrimaryText" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Dialog_CloseText" xml:space="preserve">
+    <value>Tagasi</value>
+  </data>
+  <data name="EnEnhancedSecConfirm_Title" xml:space="preserve">
+    <value>Kas soovite aktiveerida täiustatud turvalisuse?</value>
+  </data>
+  <data name="EnEnhancedSecConfirm_Content" xml:space="preserve">
+    <value>Täiustatud turvalisuse aktiveerimine nõuab kõrgendatud õigustega rakenduste käivitamiseks administraatori konto parooli sisestamist.
+Veenduge, et teate oma administraatori konto parooli või lähtestage see.</value>
+  </data>
+  <data name="EnEnhancedSecConfirm_Primary" xml:space="preserve">
+    <value>Aktiveeri</value>
+  </data>
+  <data name="DisEnhancedSecDone_Title" xml:space="preserve">
+    <value>Täiustatud Turvalisus Eemaldatud</value>
+  </data>
+  <data name="Dialog_Content_LogOff" xml:space="preserve">
+    <value>Kas soovite muudatuste rakendamiseks kohe välja logida?</value>
+  </data>
+  <data name="EnEnhancedSecDone_Title" xml:space="preserve">
+    <value>Täiustatud Turvalisus Aktiveeritud</value>
+  </data>
+  <data name="ChangePasswordInstructions" xml:space="preserve">
+    <value>Parooli muutmiseks:
+
+1. Vajutage Ctrl + Alt + Delete
+2. Klõpsake nuppu Muuda parooli</value>
+  </data>
+  <data name="CreateNewUserInstructions" xml:space="preserve">
+    <value>Kas soovite luua uue kasutaja? See avab kasutajakontode akna.
+Uue kasutaja loomiseks vajutage lisa.</value>
+  </data>
+  <data name="ChangeUsernInvalidIn" xml:space="preserve">
+    <value>Vale sisend</value>
+  </data>
+  <data name="ChangeUsernInvalidInEx" xml:space="preserve">
+    <value>Kasutajanimed ei saa olla tühjad.</value>
+  </data>
+  <data name="ChangeUsernInvalidOp" xml:space="preserve">
+    <value>Võimatu toiming</value>
+  </data>
+  <data name="ChangeUsernInvalidOpEx" xml:space="preserve">
+    <value>Uus kasutajanimi ei saa olla sama, mis vana.</value>
+  </data>
+  <data name="ChangeUserNoUser" xml:space="preserve">
+    <value>Kasutajat ei leitud</value>
+  </data>
+  <data name="ChangeUserNoUserEx" xml:space="preserve">
+    <value>Kasutaja "{0}" pole olemas.</value>
+  </data>
+  <data name="ChangeUserDuplicate" xml:space="preserve">
+    <value>Kasutajanimi võetud</value>
+  </data>
+  <data name="ChangeUserDuplicateEx" xml:space="preserve">
+    <value>Kasutajanimi "{0}" on juba kasutusel.</value>
+  </data>
+  <data name="ChangeUserDone" xml:space="preserve">
+    <value>Kasutajanime muudetud.</value>
+  </data>
+  <data name="ChangeUserBadName" xml:space="preserve">
+    <value>Võimatu Kasutajanimi</value>
+  </data>
+  <data name="ChangeUserBadNameEx" xml:space="preserve">
+    <value>Kasutajanimi peab olema 1–20 tähte pikk ja võib sisaldada ainult
+tähti, numbreid, tühikuid, punkte ja sidekriipse.</value>
+  </data>
+  <data name="PfpChangeImg" xml:space="preserve">
+    <value>Sisesta pildifaili asukoht</value>
+  </data>
+  <data name="PfpChangeImgPlace" xml:space="preserve">
+    <value>Pildifaili täielik asukoht siia</value>
+  </data>
+  <data name="CUPFP" xml:space="preserve">
+    <value>Muuda Kasutajaprofiili Pilti</value>
+  </data>
+  <data name="PfpChangeDone" xml:space="preserve">
+    <value>Profiilipildi muudetud.</value>
+  </data>
+  <data name="FileNotExist" xml:space="preserve">
+    <value>Probleem</value>
+  </data>
+  <data name="FileNotExistEx" xml:space="preserve">
+    <value>Faili pole olemas või see pole juurdepääsetav. 
+Kontrollige teed ja proovige uuesti.</value>
+  </data>
+</root>

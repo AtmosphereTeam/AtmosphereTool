@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="AtmosphereTool.Views.UninstallProgressPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AtmosphereTool.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollView Padding="24,14,24,50">
+        <Grid x:Name="ContentArea">
+            <Grid.Resources>
+                <x:Double x:Key="ProgressBarTrackHeight">10</x:Double>
+            </Grid.Resources>
+            <StackPanel>
+                <!-- Header -->
+                <TextBlock x:Name="MessageText" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" TextWrapping="WrapWholeWords" Margin="0,0,0,12"/>
+                
+                <!-- Progress bar -->
+                <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Padding="2" Margin="0,0,0,12" Visibility="Visible">
+                    <ProgressBar x:Name="ProgressBar" MinHeight="{StaticResource ProgressBarTrackHeight}" Minimum="0" Maximum="100"/>
+                </Border>
+
+                <!-- ListView -->
+                <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Padding="4" Margin="0,0,0,12">
+                    <ListView x:Name="StatusListView"/>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </ScrollView>
+</Page>
