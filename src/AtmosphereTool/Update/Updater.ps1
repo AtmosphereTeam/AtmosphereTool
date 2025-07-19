@@ -1,4 +1,6 @@
 Write-Host "Downloading AtmosphereTool..."
+$windir = [Environment]::GetFolderPath('Windows')
+& "$windir\AtmosphereModules\initPowerShell.ps1"
 function Remove-TempDirectory { Pop-Location; Remove-Item -Path $tempDir -Force -Recurse -EA 0 }
 $tempDir = Join-Path -Path $(Get-SystemDrive) -ChildPath $([System.Guid]::NewGuid())
 New-Item $tempDir -ItemType Directory -Force | Out-Null

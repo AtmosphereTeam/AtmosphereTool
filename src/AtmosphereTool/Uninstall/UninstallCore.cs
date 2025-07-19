@@ -324,10 +324,10 @@ namespace AtmosphereTool.Uninstall
             // Restore Services
             progressPage.AddStatus("Restoring Services");
             LogHelper.LogInfo("[UninstallAtmosphere]: Restoring Services");
-            await CommandHelper.StartInCmd("reg import \"C:\\Windows\\AtmosphereModules\\Other\\winServices.reg\"", false, true, true);
+            await CommandHelper.StartInCmd("reg import \"C:\\Windows\\AtmosphereModules\\Other\\winServices.reg\"", true, true, true);
 
             // Reset Network
-            progressPage.AddStatus("Resetting IP Config");
+            progressPage.AddStatus("Resetting Network Config");
             LogHelper.LogInfo("[UninstallAtmosphere]: Restting IP Config");
             await CommandHelper.RunProcess("netsh", "int ip reset");
             await CommandHelper.RunProcess("netsh", "interface ipv4 reset");
@@ -357,7 +357,15 @@ namespace AtmosphereTool.Uninstall
             if (appdatapth != string.Empty)
             {
                 var roamingappdata = Path.Combine(appdatapth, "Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Cleanup.cmd");
-                File.Move("C:\\Windows\\AtmosphereModules\\AtmosphereTool\\Uninstall\\Cleanup.cmd", roamingappdata);
+                var cleanupscript = "C:\\Windows\\AtmosphereModules\\AtmosphereTool\\Uninstall\\Cleanup.cmd";
+                if (File.Exists(cleanupscript)) 
+                {
+                    File.Move(cleanupscript, roamingappdata);
+                }
+                else
+                {
+                    try { File.Move(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Uninstall\\Cleanup.cmd"), roamingappdata); } catch { /* ignore */ }
+                }
             }
             progressPage.AddStatus("Windows setup has begun, accept the license to begin restoring system files. Your system will restart.");
             progressPage.SetProgress(100);

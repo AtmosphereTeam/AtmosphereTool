@@ -121,7 +121,7 @@
     <value>Atmosphere Tool</value>
   </data>
   <data name="AppDescription" xml:space="preserve">
-    <value>Atmosphere Tool</value>
+    <value>Atmosphere Tool on sätted AtmosphereOS-ile</value>
   </data>
   <data name="Shell_Main.Content" xml:space="preserve">
     <value>Seadmed</value>
@@ -150,11 +150,23 @@
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
     <value>Atmosphere Tool on sätted AtmosphereOS-ile</value>
   </data>
-  <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
-    <value>mitteveel</value>
+  <data name="SettingsPage_AtmosphereOSLink.NavigateUri" xml:space="preserve">
+    <value>https://github.com/Goldendraggon/Atmosphere</value>
   </data>
-  <data name="TMPSettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
-    <value>mitteveel</value>
+  <data name="SettingsPage_AtmosphereOSLink.Content" xml:space="preserve">
+    <value>AtmosphereOS Github</value>
+  </data>
+  <data name="SettingsPage_AtmosphereToolLink.Content" xml:space="preserve">
+    <value>AtmosphereTool Github</value>
+  </data>
+  <data name="SettingsPage_AtmosphereToolLink.NavigateUri" xml:space="preserve">
+    <value>https://github.com/Goldendraggon/AtmosphereTool</value>
+  </data>
+  <data name="SettingsPage_AtmosphereDiscordLink.Content" xml:space="preserve">
+    <value>Tule meie Discordi</value>
+  </data>
+  <data name="SettingsPage_AtmosphereDiscordLink.NavigateUri" xml:space="preserve">
+    <value>https://discord.gg/JRsCSV8Tqu</value>
   </data>
   <data name="AppNotificationSamplePayload" xml:space="preserve">
     <value>&lt;toast launch="action=ToastClick"&gt;
@@ -209,10 +221,13 @@
   <data name="AdminWarningButton.Content" xml:space="preserve">
     <value>Taaskäivita Administraatorina</value>
   </data>
-  <data name="ViewApplicationLogs.Content" xml:space="preserve">
+  <data name="SettingsPage_ViewApplicationLogs.Content" xml:space="preserve">
     <value>Vaata logisid</value>
   </data>
-  <data name="CheckForUpdates.Content" xml:space="preserve">
+  <data name="SettingsPage_CheckForUpdates.Content" xml:space="preserve">
     <value>Kontrolli Uuendusi</value>
+  </data>
+  <data name="LogsView_OpenLogsFolder.Content" xml:space="preserve">
+    <value>Avage Logide Kaust</value>
   </data>
 </root>

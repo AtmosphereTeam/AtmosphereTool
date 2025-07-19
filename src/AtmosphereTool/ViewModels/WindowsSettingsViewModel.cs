@@ -1,4 +1,4 @@
-﻿// ViewModels/BlankViewModel.cs (Ensure this file name and class name match)
+﻿// ViewModels/WindowsSettingsViewModel.cs (Ensure this file name and class name match)
 using System.Drawing.Imaging;
 using AtmosphereTool.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,9 +11,9 @@ using WinResLoader = Windows.ApplicationModel.Resources.ResourceLoader;
 namespace AtmosphereTool.ViewModels;
 
 // Ensure this matches the ViewModel name you are using in your Page and App.xaml.cs
-public partial class BlankViewModel : ObservableObject
+public partial class WindowsSettingsViewModel : ObservableObject
 {
-    public BlankViewModel()
+    public WindowsSettingsViewModel()
     {
 
     }

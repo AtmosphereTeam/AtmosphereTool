@@ -15,7 +15,7 @@ public class PageService : IPageService
     public PageService()
     {
         Configure<MainViewModel, MainPage>();
-        Configure<BlankViewModel, BlankPage>();
+        Configure<WindowsSettingsViewModel, WindowsSettingsPage>();
         Configure<SettingsViewModel, SettingsPage>();
         Configure<AtmosphereSettingsViewModel, AtmosphereSettingsPage>();
     }

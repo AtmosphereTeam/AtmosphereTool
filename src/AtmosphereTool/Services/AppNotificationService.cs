@@ -7,14 +7,9 @@ using Microsoft.Windows.AppNotifications;
 
 namespace AtmosphereTool.Notifications;
 
-public class AppNotificationService : IAppNotificationService
+public class AppNotificationService(INavigationService navigationService) : IAppNotificationService
 {
-    private readonly INavigationService _navigationService;
-
-    public AppNotificationService(INavigationService navigationService)
-    {
-        _navigationService = navigationService;
-    }
+    private readonly INavigationService _navigationService = navigationService;
 
     ~AppNotificationService()
     {

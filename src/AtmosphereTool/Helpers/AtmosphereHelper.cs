@@ -113,11 +113,11 @@ public static partial class UserSidHelper
     [StructLayout(LayoutKind.Sequential)]
     private struct TOKEN_USER
     {
-        public _SID_AND_ATTRIBUTES User;
+        public SID_AND_ATTRIBUTES User;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct _SID_AND_ATTRIBUTES
+    private struct SID_AND_ATTRIBUTES
     {
         public IntPtr Sid;
         public int Attributes;
@@ -166,8 +166,7 @@ public static partial class UserSidHelper
                     return null;
                 }
                 // Get required size for token info
-                var tokenInfoLength = 0;
-                GetTokenInformation(tokenHandle, TOKEN_INFORMATION_CLASS.TokenUser, IntPtr.Zero, 0, out tokenInfoLength);
+                GetTokenInformation(tokenHandle, TOKEN_INFORMATION_CLASS.TokenUser, IntPtr.Zero, 0, out int tokenInfoLength);
                 var tokenInfo = Marshal.AllocHGlobal(tokenInfoLength);
                 var result = GetTokenInformation(tokenHandle, TOKEN_INFORMATION_CLASS.TokenUser, tokenInfo, tokenInfoLength, out _);
                 if (!result)
@@ -223,12 +222,11 @@ public static partial class PowerHelper
 
     public static bool IsHibernationEnabled()
     {
-        SYSTEM_POWER_CAPABILITIES spc;
         var result = CallNtPowerInformation(
             SystemPowerCapabilities,
             IntPtr.Zero,
             0,
-            out spc,
+            out SYSTEM_POWER_CAPABILITIES spc,
             Marshal.SizeOf<SYSTEM_POWER_CAPABILITIES>());
 
         if (result == 0) // STATUS_SUCCESS

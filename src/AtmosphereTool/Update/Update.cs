@@ -2,7 +2,10 @@
 using System.Reflection;
 using AtmosphereTool.Helpers;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Dispatching;
 using Newtonsoft.Json.Linq;
+using ABI.System.Collections.Generic;
+using CommunityToolkit.WinUI;
 
 namespace AtmosphereTool.Update;
 public class Update
@@ -66,31 +69,35 @@ public class Update
         var (update, preview) = await CheckForUpdate();
         if (update && !preview)
         {
-            var updatedialog = new ContentDialog
+            // This took longer then it should've
+            await App.MainWindow.DispatcherQueue.EnqueueAsync(priority: DispatcherQueuePriority.Low, function: async () =>
             {
-                Title = "Update",
-                Content = "A newer version of AtmosphereTool is out. \nWould you like to update?",
-                PrimaryButtonText = "Yes",
-                CloseButtonText = "No",
-                DefaultButton = ContentDialogButton.Primary,
-                XamlRoot = App.MainWindow.Content.XamlRoot
-            };
-            if (await updatedialog.ShowAsync() == ContentDialogResult.Primary)
-            {
-                var updater = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Update\\Updater.ps1");
-                if (File.Exists(updater))
+                var updatedialog = new ContentDialog
                 {
-                    var psi = new ProcessStartInfo
+                    Title = "Update",
+                    Content = "A newer version of AtmosphereTool is out. \nWould you like to update?",
+                    PrimaryButtonText = "Yes",
+                    CloseButtonText = "No",
+                    DefaultButton = ContentDialogButton.Primary,
+                    XamlRoot = App.MainWindow.Content.XamlRoot
+                };
+                if (await updatedialog.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var updater = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Update\\Updater.ps1");
+                    if (File.Exists(updater))
                     {
-                        FileName = "powershell.exe",
-                        Arguments = $"-NoProfile -ExecutionPolicy Bypass -File \"{updater}\"",
-                        UseShellExecute = true,
-                        Verb = AdminHelper.IsAdministrator ? "runas" : ""
-                    };
-                    Process.Start(psi);
-                    Environment.Exit(0);
+                        var psi = new ProcessStartInfo
+                        {
+                            FileName = "powershell.exe",
+                            Arguments = $"-NoProfile -ExecutionPolicy Bypass -File \"{updater}\"",
+                            UseShellExecute = true,
+                            Verb = AdminHelper.IsAdministrator ? "runas" : ""
+                        };
+                        Process.Start(psi);
+                        Environment.Exit(0);
+                    }
                 }
-            }
+            });
         }
     }
 }

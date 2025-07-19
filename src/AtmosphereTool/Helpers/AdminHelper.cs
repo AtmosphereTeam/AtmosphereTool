@@ -7,10 +7,6 @@ public static class AdminHelper
 {
     public static bool IsAdministrator => IsRunningAsAdministrator();
 
-    private static void OnRestartAsAdminClick(object sender, RoutedEventArgs e)
-    {
-        RestartAsAdministrator();
-    }
     public static void RestartAsAdministrator()
     {
         var dllPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
