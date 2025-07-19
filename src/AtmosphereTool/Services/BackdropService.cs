@@ -1,15 +1,8 @@
 ﻿using AtmosphereTool.Contracts.Services;
 
 namespace AtmosphereTool.Services;
-public class BackdropService : IBackdropService
+public class BackdropService(WindowEx window) : IBackdropService
 {
-    private readonly WindowEx _window;
-
-    public BackdropService(WindowEx window)
-    {
-        _window = window;
-    }
-
     public string CurrentBackdrop
     {
         get
@@ -17,7 +10,7 @@ public class BackdropService : IBackdropService
             var backdrop = string.Empty;
             //_window.DispatcherQueue.TryEnqueue(() =>
             //{
-            if (_window is MainWindow mainWindow)
+            if (window is MainWindow mainWindow)
             {
                 backdrop = mainWindow.currentBackdrop;
             }
@@ -28,9 +21,9 @@ public class BackdropService : IBackdropService
 
     public void SetBackdrop(string tag)
     {
-        _window.DispatcherQueue.TryEnqueue(() =>
+        window.DispatcherQueue.TryEnqueue(() =>
         {
-            if (_window is MainWindow mainWindow)
+            if (window is MainWindow mainWindow)
             {
                 mainWindow.SetBackdrop(tag);
             }

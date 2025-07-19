@@ -13,7 +13,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.Windows.Globalization;
 
 namespace AtmosphereTool;
 
@@ -50,6 +49,7 @@ public partial class App : Application
 
     public App()
     {
+        // ApplicationLanguages.PrimaryLanguageOverride = "en-US";
         InitializeComponent();
 
         Host = Microsoft.Extensions.Hosting.Host.
@@ -68,10 +68,7 @@ public partial class App : Application
             services.AddSingleton<ILocalSettingsService, LocalSettingsService>();
             services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
             services.AddTransient<INavigationViewService, NavigationViewService>();
-            services.AddSingleton<IBackdropService>(provider =>
-            {
-                return new BackdropService(MainWindow);
-            });
+            services.AddSingleton<IBackdropService>(provider => { return new BackdropService(MainWindow); });
 
 
             services.AddSingleton<IActivationService, ActivationService>();
@@ -86,8 +83,8 @@ public partial class App : Application
             services.AddTransient<AtmosphereSettingsPage>();
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SettingsPage>();
-            services.AddTransient<BlankViewModel>();
-            services.AddTransient<BlankPage>();
+            services.AddTransient<WindowsSettingsViewModel>();
+            services.AddTransient<WindowsSettingsPage>();
             services.AddTransient<MainViewModel>();
             services.AddTransient<MainPage>();
             services.AddTransient<ShellPage>();
@@ -108,7 +105,7 @@ public partial class App : Application
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
     {
         LogHelper.LogCritical($"Encountered an Unhandled Exception: {e.Exception}");
-        LogHelper.LogCritical($"Encountered an Unhandled Exception: {e.Message}");
+        LogHelper.LogCritical($"Exception Message: {e.Message}");
         var programData = Environment.ExpandEnvironmentVariables("%ProgramData%");
         File.WriteAllText(Path.Combine(programData, "AtmosphereTool\\Logs\\Crash.marker"), "Crash marker created at " + DateTime.Now + $"\n Crash trace: {e.Exception} \n\n{e.Message}");
     }
@@ -140,5 +137,7 @@ public partial class App : Application
             });
 
         }
+        _ = Task.Run(async () => { await Update.Update.UpdateTool(); });
+
     }
 }

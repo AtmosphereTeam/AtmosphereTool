@@ -1,8 +1,7 @@
 # AtmosphereTool
 
-**AtmosphereTool** is the official configuration utility built specifically for use with **AtmosphereOS** — a modular, performance-focused Windows customization platform. While it can function independently, it is designed to unlock the full potential of AtmosphereOS by providing a user-friendly interface for privacy, performance, and appearance tweaks.
+**AtmosphereTool** is the official configuration utility built specifically for use with [**AtmosphereOS**](https://github.com/Goldendraggon/Atmosphere) — a modular playbook aimed at improving many Windows aspects. While it can function independently, it is designed to unlock the full potential of AtmosphereOS by providing a user-friendly interface for privacy, performance, and appearance tweaks.
 
----
 
 ## Key Features
 
@@ -39,7 +38,6 @@
   * **CPU**, **GPU**, **RAM**, and **Disk** usage
   * System **uptime**
 
----
 
 ## 🧪 Developer Status
 

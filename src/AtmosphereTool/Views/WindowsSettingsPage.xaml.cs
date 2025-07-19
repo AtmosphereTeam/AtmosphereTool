@@ -8,18 +8,18 @@ using Microsoft.UI.Xaml.Controls;
 using Windows.Storage;
 
 namespace AtmosphereTool.Views;
-public sealed partial class BlankPage : Page
+public sealed partial class WindowsSettingsPage : Page
 {
-    public BlankViewModel ViewModel
+    public WindowsSettingsViewModel ViewModel
     {
         get;
     }
 
     private readonly WindowsSettingsLocalizationHelper _localizationHelper = new();
 
-    public BlankPage()
+    public WindowsSettingsPage()
     {
-        ViewModel = App.GetService<BlankViewModel>();
+        ViewModel = App.GetService<WindowsSettingsViewModel>();
         InitializeComponent();
         Loaded += (s, e) =>
         {
@@ -67,14 +67,14 @@ public sealed partial class BlankPage : Page
         NotificationCenter.IsOn = notificationCenterValue == null || notificationCenterValue.ToString() != "1";
         var notificationsValue = RegistryHelper.Read("HKU", $"{sid}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications", "ToastEnabled");
         Notifications.IsOn = notificationsValue == null || notificationsValue.ToString() == "1";
-        VerifyAtmosphere.Visibility = RegistryHelper.Read("HKLM", "SOFTWARE\\AME\\Playbooks\\Applied\\{8bbb362c-858b-41d9-a9ea-83a4b9669c43}", "SelectedOptions") is string[] arr && arr.Contains("ameliorated") ? Visibility.Visible : Visibility.Collapsed;
+        // VerifyAtmos.Visibility = RegistryHelper.Read("HKLM", "SOFTWARE\\AME\\Playbooks\\Applied\\{8bbb362c-858b-41d9-a9ea-83a4b9669c43}", "SelectedOptions") is string[] arr && arr.Contains("ameliorated") ? Visibility.Visible : Visibility.Collapsed;
         // Resubscribe
         HideUsername.Toggled += HideUsernameToggle;
         ToggleHibernation.Toggled -= HibernationToggle;
         VisualBasicScript.Toggled += VisualBasicScriptToggle;
         NotificationCenter.Toggled += NotificationCenterToggle;
         Notifications.Toggled += NotificationsToggle;
-        VerifyAtmosphere.Click += VerifyAtmosphereClick;
+        // VerifyAtmosphere.Click += VerifyAtmosphereClick;
     }
     private void LocalizeControls()
     {

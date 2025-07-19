@@ -49,6 +49,7 @@ public partial class SettingsViewModel : ObservableRecipient
         {
             if (SetProperty(ref _selectedBackdropItem, value) && value != null)
             {
+                if (value.Type.ToString() == _backdropService.CurrentBackdrop) { return; }
                 _backdropService.SetBackdrop(value.Type.ToString());
             }
         }

@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="AtmosphereTool.Views.BlankPage"
+    x:Class="AtmosphereTool.Views.WindowsSettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -148,7 +148,7 @@
                             </controls:SettingsCard>
                         </controls:SettingsExpander.Items>
                     </controls:SettingsExpander>
-                    <controls:SettingsCard x:Name="VerifyAtmos" Header="Verify AtmosphereOS Installation" Margin="0,5,0,0">
+                    <controls:SettingsCard x:Name="VerifyAtmos" Header="Verify AtmosphereOS Installation" Margin="0,5,0,0" Visibility="Collapsed">
                         <controls:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xEE92;"/>
                         </controls:SettingsCard.HeaderIcon>

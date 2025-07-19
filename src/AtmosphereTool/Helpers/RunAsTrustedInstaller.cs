@@ -198,10 +198,9 @@ public partial class RunAsTi()
         si.cb = Marshal.SizeOf(si);
         si.lpDesktop = "Winsta0\\Default";
 
-        PROCESS_INFORMATION pi;
 
         if (!CreateProcessWithTokenW(hDup, LOGON_WITH_PROFILE, null, commandLine, CREATE_UNICODE_ENVIRONMENT,
-            IntPtr.Zero, null, ref si, out pi))
+            IntPtr.Zero, null, ref si, out PROCESS_INFORMATION pi))
         {
             throw new Win32Exception(Marshal.GetLastWin32Error());
         }

@@ -42,7 +42,7 @@
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE950;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_Blank" helpers:NavigationHelper.NavigateTo="AtmosphereTool.ViewModels.BlankViewModel" IsEnabled="{x:Bind helpers:AdminHelper.IsAdministrator}">
+                <NavigationViewItem x:Uid="Shell_Blank" helpers:NavigationHelper.NavigateTo="AtmosphereTool.ViewModels.WindowsSettingsViewModel" IsEnabled="{x:Bind helpers:AdminHelper.IsAdministrator}">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9F5;"/>
                     </NavigationViewItem.Icon>

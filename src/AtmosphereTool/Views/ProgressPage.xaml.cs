@@ -11,7 +11,6 @@ namespace AtmosphereTool.Views;
 
 public sealed partial class ProgressPage : Page
 {
-    // Bind this to your ListView's ItemsSource
     public ObservableCollection<string> StatusMessages { get; } = new();
 
     public ProgressPage()
