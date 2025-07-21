@@ -1,6 +1,7 @@
 ﻿using AtmosphereTool.Contracts.Services;
 using AtmosphereTool.ViewModels;
 using AtmosphereTool.Views;
+using AtmosphereTool.FeaturePages;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -18,6 +19,8 @@ public class PageService : IPageService
         Configure<WindowsSettingsViewModel, WindowsSettingsPage>();
         Configure<SettingsViewModel, SettingsPage>();
         Configure<AtmosphereSettingsViewModel, AtmosphereSettingsPage>();
+        // You have to add namespace if you want to register without viewmodel
+        Configure("AtmosphereTool.FeaturePages.GeneralConfig", typeof(GeneralConfig));
     }
 
     public Type GetPageType(string key)
@@ -32,6 +35,22 @@ public class PageService : IPageService
         }
 
         return pageType;
+    }
+
+    private void Configure(string key, Type pageType)
+    {
+        lock (_pages)
+        {
+            if (_pages.ContainsKey(key))
+            {
+                throw new ArgumentException($"The key {key} is already configured in PageService");
+            }
+            if (_pages.ContainsValue(pageType))
+            {
+                throw new ArgumentException($"This type is already configured with key {_pages.First(p => p.Value == pageType).Key}");
+            }
+            _pages.Add(key, pageType);
+        }
     }
 
     private void Configure<VM, V>()

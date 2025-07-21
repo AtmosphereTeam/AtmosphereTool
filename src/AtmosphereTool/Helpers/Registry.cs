@@ -44,11 +44,19 @@ namespace AtmosphereTool.Helpers
         public static bool Exists(string hive, string subKey, string? name = null)
         {
             var baseKey = ParseHive(hive) ?? throw new ArgumentException("Invalid registry hive");
-            using var key = baseKey.OpenSubKey(subKey);
-            if (key == null) { return false; }
-            if (string.IsNullOrEmpty(name)) { return true; }
-            var valueNames = key.GetValueNames();
-            return valueNames.Contains(name);
+            try
+            {
+                using var key = baseKey.OpenSubKey(subKey);
+                if (key == null) { return false; }
+                if (string.IsNullOrEmpty(name)) { return true; }
+                var valueNames = key.GetValueNames();
+                return valueNames.Contains(name);
+            }
+            catch (Exception e)
+            {
+                LogHelper.LogCritical($"[Registry]: Failed to check if registry value: {hive + "\\" + subKey + "\\" + name} \nException: {e.Message}");
+                return false;
+            }
         }
         public static object? ReadEx(string fullPath, string? name = null)
         {

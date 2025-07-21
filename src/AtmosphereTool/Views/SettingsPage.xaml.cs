@@ -24,7 +24,7 @@ public sealed partial class SettingsPage : Page
     {
         if (App.MainWindow.Content is ShellPage shellPage)
         {
-            shellPage.RootFrame.Navigate(typeof(LogsView));
+            shellPage.RootFrame.Navigate(typeof(SubPages.LogsView));
         }
     }
     private async void CheckforUpdatesClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)

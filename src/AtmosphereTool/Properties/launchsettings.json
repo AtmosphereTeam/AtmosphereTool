@@ -1,9 +1,6 @@
 ﻿{
     "profiles": {
-      "AtmosphereTool (Package)": {
-        "commandName": "MsixPackage"
-      },
-      "AtmosphereTool (Unpackaged)": {
+      "AtmosphereTool": {
         "commandName": "Project"
       }
     }

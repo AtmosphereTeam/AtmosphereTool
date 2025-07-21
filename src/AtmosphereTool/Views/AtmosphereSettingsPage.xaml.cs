@@ -1,5 +1,6 @@
 ﻿using AtmosphereTool.Helpers;
 using AtmosphereTool.ViewModels;
+
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -27,6 +28,7 @@ public sealed partial class AtmosphereSettingsPage : Page
         AtmosphereUI.Toggled -= ToggleUIModification;
         ToggleHibernation.Toggled -= HibernationToggle;
         TogglePS.Toggled -= TogglePowerSaving;
+        ToggleVBS.Toggled -= ToggledVBS;
         ToggleStartMenu.Toggled -= ToggleStartMenuModifications;
         OldContextMenu.Toggled -= ToggleOldContextMenu;
         TranslucentFlyouts.Toggled -= TranslucentFlyoutsToggle;
@@ -37,10 +39,11 @@ public sealed partial class AtmosphereSettingsPage : Page
         ConfigServicesHeader.Visibility = options.Contains("ameliorate") ? Visibility.Visible : Visibility.Collapsed;
         ConfigTelemetryHeader.Visibility = options.Contains("ameliorate") ? Visibility.Visible : Visibility.Collapsed;
         RepairWindowsHeader.Visibility = options.Contains("ameliorate") ? Visibility.Visible : Visibility.Collapsed;
-        ToggleUpdates.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "AUOptions") != null;
+        ToggleUpdates.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "AUOptions") == null;
         AtmosphereUI.IsOn = options.Contains("modify-ui");
         ToggleHibernation.IsOn = PowerHelper.IsHibernationEnabled();
         TogglePS.IsOn = options.Contains("disable-power-saving");
+        ToggleVBS.IsOn = RegistryHelper.Read("HKLM", "SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity", "Enabled") as int? == 1 && RegistryHelper.Read("HKLM", "SYSTEM\\CurrentControlSet\\Control\\DeviceGuard", "Enabled") as int? == 1;
         ToggleStartMenu.IsOn = options.Contains("openshell");
         var usersid = RegistryHelper.GetCurrentUserSid();
         OldContextMenu.Visibility = Environment.OSVersion.Version.Build > 22000 ? Visibility.Visible : Visibility.Collapsed;
@@ -50,6 +53,7 @@ public sealed partial class AtmosphereSettingsPage : Page
         AtmosphereUI.Toggled += ToggleUIModification;
         ToggleHibernation.Toggled += HibernationToggle;
         TogglePS.Toggled += TogglePowerSaving;
+        ToggleVBS.Toggled -= ToggledVBS;
         ToggleStartMenu.Toggled += ToggleStartMenuModifications;
         OldContextMenu.Toggled += ToggleOldContextMenu;
     }
@@ -170,15 +174,15 @@ public sealed partial class AtmosphereSettingsPage : Page
         var toggle = (ToggleSwitch)sender;
         if (toggle.IsOn)
         {
-            LogHelper.LogInfo("[AutomaticUpdates]: Toggled off");
-            ReplaceOption("auto-updates-default", "auto-updates-disable");
-            RegistryHelper.AddOrUpdate("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "AUOptions", "2", "REG_DWORD");
-        }
-        else
-        {
             LogHelper.LogInfo("[AutomaticUpdates]: Toggled on");
             ReplaceOption("auto-updates-disable", "auto-updates-default");
             RegistryHelper.Delete("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "AUOptions");
+        }
+        else
+        {
+            LogHelper.LogInfo("[AutomaticUpdates]: Toggled off");
+            ReplaceOption("auto-updates-default", "auto-updates-disable");
+            RegistryHelper.AddOrUpdate("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "AUOptions", "2", "REG_DWORD");
         }
     }
     private async void ToggleUIModification(object sender, RoutedEventArgs e)
@@ -266,10 +270,24 @@ public sealed partial class AtmosphereSettingsPage : Page
             }
         }
     }
+    private void ToggledVBS(object sender, RoutedEventArgs e)
+    {
+        var toggle = (ToggleSwitch)sender;
+        if (toggle.IsOn)
+        {
+            RegistryHelper.AddOrUpdate("HKLM", "SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity", "Enabled", 1, "REG_DWORD");
+            RegistryHelper.AddOrUpdate("HKLM", "SYSTEM\\CurrentControlSet\\Control\\DeviceGuard", "Enabled", 1, "REG_DWORD");
+        }
+        else
+        {
+            RegistryHelper.AddOrUpdate("HKLM", "SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity", "Enabled", 0, "REG_DWORD");
+            RegistryHelper.AddOrUpdate("HKLM", "SYSTEM\\CurrentControlSet\\Control\\DeviceGuard", "Enabled", 0, "REG_DWORD");
+        }
+    }
     private async void ConfigureVBSClick(object sender, RoutedEventArgs e)
     {
         LogHelper.LogInfo("Configure Virtualization Based Security Clicked");
-        await CommandHelper.StartInPowershell("C:\\Windows\\AtmosphereModules\\Scripts\\ScriptWrappers\\ConfigVBS.ps1", false, true);
+        await CommandHelper.StartInCmd("powershell -EP Bypass -NoP -File \"C:\\Windows\\AtmosphereModules\\Scripts\\ScriptWrappers\\ConfigVBS.ps1\"", false, hidden: false);
     }
     private async void ToggleStartMenuModifications(object sender, RoutedEventArgs e)
     {
@@ -315,7 +333,7 @@ public sealed partial class AtmosphereSettingsPage : Page
             SMMProgressRing.IsActive = false;
         }
     }
-    private void ToggleOldContextMenu(object sender, RoutedEventArgs e)
+    private async void ToggleOldContextMenu(object sender, RoutedEventArgs e)
     {
         var toggle = (ToggleSwitch)sender;
         var usersid = RegistryHelper.GetCurrentUserSid();
@@ -329,6 +347,8 @@ public sealed partial class AtmosphereSettingsPage : Page
             LogHelper.LogInfo("Old context menu toggled off");
             RegistryHelper.DeleteKey("HKU", $"{usersid}\\Software\\Classes\\CLSID\\{{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}}\\InprocServer32");
         }
+        var logoff = await ShowConfirmationDialogAsync("Dialog_Title_LogOff", "Dialog_Content_LogOff");
+        if (logoff) { await CommandHelper.StartInCmd("logoff"); }
     }
     private async void TranslucentFlyoutsToggle(object sender, RoutedEventArgs e)
     {
@@ -384,7 +404,7 @@ public sealed partial class AtmosphereSettingsPage : Page
         LogHelper.LogInfo("Uninstall Atmosphere Clicked");
         if (App.MainWindow.Content is ShellPage shellPage)
         {
-            shellPage.RootFrame.Navigate(typeof(UninstallProgressPage));
+            shellPage.RootFrame.Navigate(typeof(SubPages.UninstallProgressPage));
         }
     }
     private void ReplaceOption(string option, string newOption)

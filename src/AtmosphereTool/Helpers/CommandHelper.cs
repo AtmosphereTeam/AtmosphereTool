@@ -17,8 +17,8 @@ namespace AtmosphereTool.Helpers
                     Arguments = file ? $"/c \"{command}\"" : $"/c {command}",
                     UseShellExecute = false,
                     CreateNoWindow = hidden,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true
+                    RedirectStandardOutput = wait,
+                    RedirectStandardError = wait
                 };
                 using var process = Process.Start(psi);
                 if (process == null)
@@ -116,7 +116,7 @@ namespace AtmosphereTool.Helpers
                 return (false, ex.Message);
             }
         }
-        public static async Task<(bool Success, string? Log, string? Error)> RunProcess(string path, string? args = null, bool wait = true)
+        public static async Task<(bool Success, string? Log, string? Error)> RunProcess(string path, string? args = null, bool wait = true, bool hidden = true)
         {
             LogHelper.LogInfo("[RunProcess]: Running process: " + path + " With args: " + args + " Wait = " + wait);
             try
@@ -126,9 +126,9 @@ namespace AtmosphereTool.Helpers
                     FileName = path,
                     Arguments = args,
                     UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true
+                    RedirectStandardOutput = wait,
+                    RedirectStandardError = wait,
+                    CreateNoWindow = hidden
                 };
                 using var process = Process.Start(psi);
                 if (process == null)

@@ -52,6 +52,12 @@
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE977;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
+                <NavigationViewItemSeparator/>
+                <NavigationViewItem x:Name="Shell_GeneralConfig" x:Uid="Shell_GeneralConfig" helpers:NavigationHelper.NavigateTo="AtmosphereTool.FeaturePages.GeneralConfig" IsEnabled="{x:Bind helpers:AdminHelper.IsAdministrator}">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xF259;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.HeaderTemplate>
                 <DataTemplate>

@@ -230,4 +230,7 @@
   <data name="LogsView_OpenLogsFolder.Content" xml:space="preserve">
     <value>Open Logs Folder</value>
   </data>
+  <data name="Shell_GeneralConfig.Content" xml:space="preserve">
+    <value>General Configuration</value>
+  </data>
 </root>

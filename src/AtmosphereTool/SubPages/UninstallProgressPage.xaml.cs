@@ -4,7 +4,7 @@ using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Controls;
 using WinResLoader = Windows.ApplicationModel.Resources.ResourceLoader;
 
-namespace AtmosphereTool.Views;
+namespace AtmosphereTool.SubPages;
 
 public sealed partial class UninstallProgressPage : Page
 {
@@ -71,9 +71,9 @@ public sealed partial class UninstallProgressPage : Page
         }
         else
         {
-            if (App.MainWindow.Content is ShellPage shellPage)
+            if (App.MainWindow.Content is Views.ShellPage shellPage)
             {
-                shellPage.RootFrame.Navigate(typeof(AtmosphereSettingsPage));
+                shellPage.RootFrame.Navigate(typeof(Views.AtmosphereSettingsPage));
             }
             return;
         }

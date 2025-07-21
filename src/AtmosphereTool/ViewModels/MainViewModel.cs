@@ -46,6 +46,13 @@ public partial class MainViewModel : ObservableRecipient
         set => SetProperty(ref _diskUsage, value);
     }
 
+    private float LastCpuUsage;
+    private float LastGpuUsage;
+    private float LastRamUsage;
+    private float NewCpuUsage;
+    private float NewGpuUsage;
+    private float NewRamUsage;
+
     private readonly PerformanceCounter? _cpuCounter = new("Processor", "% Processor Time", "_Total");
 
     public MainViewModel()
@@ -63,17 +70,24 @@ public partial class MainViewModel : ObservableRecipient
     }
     private async void UpdateStats()
     {
+        LastCpuUsage = GetCpuUsage();
+        LastGpuUsage = await GetGpuUsageAsync();
+        LastRamUsage = GetRamUsage();
+        NewCpuUsage = GetCpuUsage();
+        NewGpuUsage = await GetGpuUsageAsync();
+        NewRamUsage = GetRamUsage();
         CpuUsage = $"{GetCpuUsage():0.0}%";
-        RamUsage = $"{GetRamUsage():0.0}%";
-        // SystemUptime = GetSystemUptime();
         var gpu = await GetGpuUsageAsync();
         GpuUsage = $"{gpu}%";
+        RamUsage = $"{GetRamUsage():0.0}%";
+        // SystemUptime = GetSystemUptime();
         // DiskUsage = GetDiskUsage();
         // OnPropertyChanged(nameof(DiskUsage));
-        OnPropertyChanged(nameof(CpuUsage));
-        OnPropertyChanged(nameof(RamUsage));
+        if (LastCpuUsage != NewCpuUsage) { OnPropertyChanged(nameof(CpuUsage)); }
+        if (LastGpuUsage != NewGpuUsage) { OnPropertyChanged(nameof(GpuUsage)); }
+        if (LastRamUsage != NewRamUsage) { OnPropertyChanged(nameof(RamUsage)); }
         // OnPropertyChanged(nameof(SystemUptime));
-        OnPropertyChanged(nameof(GpuUsage));
+
     }
     public static string GetCpuName()
     {

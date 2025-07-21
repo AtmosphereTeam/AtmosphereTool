@@ -20,7 +20,7 @@ namespace AtmosphereTool.Uninstall
 
         private readonly string UserSID = RegistryHelper.GetCurrentUserSid() ?? string.Empty;
 
-        public async Task<bool> DeameliorateCore(UninstallProgressPage progressPage, string? path = null)
+        public async Task<bool> DeameliorateCore(SubPages.UninstallProgressPage progressPage, string? path = null)
         {
             if (path != null)
             {

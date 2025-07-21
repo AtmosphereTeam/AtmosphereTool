@@ -178,10 +178,10 @@
     <value>Power Saving</value>
   </data>
   <data name="VBSHeader" xml:space="preserve">
-    <value>Configure Virtualization Based Security</value>
+    <value>Toggle Virtualization Based Security</value>
   </data>
   <data name="ConfigVBS" xml:space="preserve">
-    <value>Configure</value>
+    <value>View Current Configure</value>
   </data>
   <data name="WinStartMenuHeader" xml:space="preserve">
     <value>Start Menu Modifications</value>
@@ -228,5 +228,8 @@ and anti-cheat problems then try disabling translucent flyouts.</value>
   </data>
   <data name="RemoveOS" xml:space="preserve">
     <value>Remove</value>
+  </data>
+  <data name="Dialog_Title_LogOff" xml:space="preserve">
+    <value>Log Off</value>
   </data>
 </root>

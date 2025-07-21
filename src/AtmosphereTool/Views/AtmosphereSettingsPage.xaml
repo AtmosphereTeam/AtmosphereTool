@@ -8,7 +8,7 @@
     xmlns:vm="using:AtmosphereTool.ViewModels"
     xmlns:helpers="using:AtmosphereTool.Helpers"
     mc:Ignorable="d">
-    <ScrollView Padding="24,14,24,0">
+    <ScrollView Padding="0,0,0,20">
         <Grid x:Name="ContentArea">
             <StackPanel>
                 <StackPanel>
@@ -54,11 +54,14 @@
                                 </controls:SettingsCard.HeaderIcon>
                                 <ToggleSwitch x:Name="TogglePS" Tag="TogglePS" Toggled="TogglePowerSaving"/>
                             </controls:SettingsCard>
-                            <controls:SettingsCard x:Name="VBSHeader" Header="Configure Virtualization Based Security">
+                            <controls:SettingsCard x:Name="VBSHeader" Header="Toggle Virtualization Based Security">
                                 <controls:SettingsCard.HeaderIcon>
                                     <FontIcon Glyph="&#xF0B2;"/>
                                 </controls:SettingsCard.HeaderIcon>
-                                <Button x:Name="ConfigVBS" Tag="ConfigVBS" Content="Configure" Click="ConfigureVBSClick"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="ConfigVBS" Tag="ConfigVBS" Content="View Current Configure" Click="ConfigureVBSClick" Margin="0,0,35,0" />
+                                    <ToggleSwitch x:Name="ToggleVBS" Tag="ToggleVBS" />
+                                </StackPanel>
                             </controls:SettingsCard>
                             <controls:SettingsCard x:Name="WinStartMenuHeader" Header="Start Menu Modifications">
                                 <controls:SettingsCard.HeaderIcon>

@@ -1,10 +1,13 @@
-﻿using System.Diagnostics;
-using System.Text.RegularExpressions;
-using AtmosphereTool.Helpers;
+﻿using AtmosphereTool.Helpers;
 using AtmosphereTool.ViewModels;
+
+using System.Diagnostics;
+using System.Text.RegularExpressions;
+
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+
 using Windows.Storage;
 
 namespace AtmosphereTool.Views;
@@ -511,7 +514,7 @@ public sealed partial class WindowsSettingsPage : Page
     {
         if (App.MainWindow.Content is ShellPage shellPage)
         {
-            shellPage.RootFrame.Navigate(typeof(UninstallProgressPage));
+            shellPage.RootFrame.Navigate(typeof(SubPages.UninstallProgressPage));
         }
     }
 }

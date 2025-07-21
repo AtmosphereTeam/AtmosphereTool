@@ -11,7 +11,7 @@
     <Page.DataContext>
         <vm:MainViewModel x:Name="ViewModel" />
     </Page.DataContext>
-    <ScrollView Padding="24,14,24,0">
+    <ScrollView Padding="0,0,0,20">
         <Grid x:Name="ContentArea">
             
             <StackPanel>
@@ -39,14 +39,13 @@
                         <Button Content="Enable window backdrop and restart" Click="TryEnableAcrylic"/>
                     </InfoBar.ActionButton>
                 </InfoBar>
-                <!-- Grid to hold two cards per row -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    
-                    <!-- Card 1 -->
+
+                    <!-- CPU -->
                     <Border Grid.Column="0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="8"
@@ -63,7 +62,7 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Card 2 -->
+                    <!-- GPU -->
                     <Border Grid.Column="1"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="8"
@@ -80,15 +79,13 @@
                         </StackPanel>
                     </Border>
                 </Grid>
-
-                <!-- Another row of two cards -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <!-- Card 3 -->
+                    <!-- RAM -->
                     <Border Grid.Column="0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="8"
@@ -105,7 +102,7 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Card 4 -->
+                    <!-- DISK -->
                     <Border Grid.Column="1"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="8"
@@ -122,7 +119,6 @@
                         </StackPanel>
                     </Border>
                 </Grid>
-                <!-- Live Stats Cards -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -146,8 +142,31 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- RAM Usage -->
+                    <!-- GPU Usage -->
                     <Border Grid.Column="1"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Padding="16"
+                            Margin="10"
+                            BorderBrush="{ThemeResource ControlStrongStrokeColorDefaultBrush}"
+                            BorderThickness="1">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <FontIcon Glyph="&#xF211;" FontSize="24" />
+                            <StackPanel>
+                                <TextBlock x:Uid="GPUU" Text="GPU Usage" FontWeight="SemiBold" FontSize="18" />
+                                <TextBlock Text="{x:Bind ViewModel.GpuUsage, Mode=OneWay}" FontSize="14" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- RAM Usage -->
+                    <Border Grid.Column="0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="8"
                             Padding="16"
@@ -162,10 +181,10 @@
                             </StackPanel>
                         </StackPanel>
                     </Border>
-                </Grid>
-                <Grid>
-                    <!-- Disk Usage - Full Width -->
-                    <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    
+                    <!-- Disk Usage -->
+                    <Border Grid.Column="1"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="8"
                             Padding="16"
                             Margin="10"

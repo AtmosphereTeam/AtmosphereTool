@@ -7,7 +7,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 
-namespace AtmosphereTool.Views;
+namespace AtmosphereTool.SubPages;
 
 public sealed partial class ProgressPage : Page
 {
@@ -29,7 +29,7 @@ public sealed partial class ProgressPage : Page
     {
         StatusMessages.Clear();
         ProgressBar.Value = 0;
-
+        // TODO: Base verification + Advanced verification
         var checks = new Func<Task<bool>>[]
         {
         () => CheckProcessAsync("MsMpEng"),

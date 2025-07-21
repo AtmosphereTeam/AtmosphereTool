@@ -181,7 +181,7 @@
     <value>Virtualiseerimisel Põhineva Turvalisuse Konfigureerimine</value>
   </data>
   <data name="ConfigVBS" xml:space="preserve">
-    <value>Konfigureeri</value>
+    <value>Kuva praegust konfiguratsioon</value>
   </data>
   <data name="WinStartMenuHeader" xml:space="preserve">
     <value>Start Menüü Muudatused</value>
@@ -228,5 +228,8 @@ ja anti-cheat probleemid, proovige keelata translucent flyouts.</value>
   </data>
   <data name="RemoveOS" xml:space="preserve">
     <value>Eemalda</value>
+  </data>
+  <data name="Dialog_Title_LogOff" xml:space="preserve">
+    <value>Logi Välja</value>
   </data>
 </root>
