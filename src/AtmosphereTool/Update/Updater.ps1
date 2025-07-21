@@ -6,6 +6,11 @@ $tempDir = Join-Path -Path $(Get-SystemDrive) -ChildPath $([System.Guid]::NewGui
 New-Item $tempDir -ItemType Directory -Force | Out-Null
 Push-Location $tempDir
 try {
+        if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+        Write-Host "Requesting Administrator Access" -ForegroundColor Yellow
+        Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
+        exit
+    }
     $githubApi = Invoke-RestMethod "https://api.github.com/repos/Goldendraggon/AtmosphereTool/releases" -ErrorAction Stop
     $zipUrl = $githubApi.assets.browser_download_url | Where-Object { $_ -like "*.zip" } | Select-Object -First 1
     if (-not $zipUrl) {

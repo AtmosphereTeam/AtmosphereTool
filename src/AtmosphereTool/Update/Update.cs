@@ -29,6 +29,7 @@ public class Update
                 return (false, false);
             }
             var isNewer = CompareVersions(tag);
+            if (!isNewer) { return (false, false); }
             var isPreview = tag.Contains('-');
             LogHelper.LogInfo($"Update available: {isNewer} Preview: {isPreview}");
             return (isNewer, isPreview);
@@ -66,8 +67,8 @@ public class Update
     public static async Task UpdateTool()
     {
         LogHelper.LogInfo("Checking for Updates");
-        var (update, preview) = await CheckForUpdate();
-        if (update && !preview)
+        var (update, _) = await CheckForUpdate();
+        if (update)
         {
             // This took longer then it should've
             await App.MainWindow.DispatcherQueue.EnqueueAsync(priority: DispatcherQueuePriority.Low, function: async () =>
@@ -91,7 +92,7 @@ public class Update
                             FileName = "powershell.exe",
                             Arguments = $"-NoProfile -ExecutionPolicy Bypass -File \"{updater}\"",
                             UseShellExecute = true,
-                            Verb = AdminHelper.IsAdministrator ? "runas" : ""
+                            Verb = AdminHelper.IsAdministrator ? "" : "runas"
                         };
                         Process.Start(psi);
                         Environment.Exit(0);
