@@ -35,7 +35,19 @@
             IsSettingsVisible="True"
             ExpandedModeThresholdWidth="1280"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
-            Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
+            Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}"
+            PaneDisplayMode="Left"
+            IsPaneOpen="False">
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox 
+                    x:Uid="SearchBox"
+                    x:Name="SearchBox"
+                    TextChanged="SearchBox_TextChanged"
+                    QuerySubmitted="SearchBox_QuerySubmitted"
+                    SuggestionChosen="SearchBox_SuggestionChosen"
+                    IsEnabled="{x:Bind helpers:AdminHelper.IsAdministrator}"
+                    />
+            </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Uid="Shell_Main" helpers:NavigationHelper.NavigateTo="AtmosphereTool.ViewModels.MainViewModel">
                     <NavigationViewItem.Icon>

@@ -73,6 +73,7 @@ public class Update
             // This took longer then it should've
             await App.MainWindow.DispatcherQueue.EnqueueAsync(priority: DispatcherQueuePriority.Low, function: async () =>
             {
+                // TODO: translate update dialog
                 var updatedialog = new ContentDialog
                 {
                     Title = "Update",
@@ -99,6 +100,10 @@ public class Update
                     }
                 }
             });
+        }
+        if (!update)
+        {
+            LogHelper.LogInfo("No updates found");
         }
     }
 }

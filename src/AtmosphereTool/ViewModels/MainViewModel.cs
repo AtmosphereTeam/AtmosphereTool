@@ -73,13 +73,14 @@ public partial class MainViewModel : ObservableRecipient
         LastCpuUsage = GetCpuUsage();
         LastGpuUsage = await GetGpuUsageAsync();
         LastRamUsage = GetRamUsage();
+
         NewCpuUsage = GetCpuUsage();
         NewGpuUsage = await GetGpuUsageAsync();
         NewRamUsage = GetRamUsage();
-        CpuUsage = $"{GetCpuUsage():0.0}%";
-        var gpu = await GetGpuUsageAsync();
-        GpuUsage = $"{gpu}%";
-        RamUsage = $"{GetRamUsage():0.0}%";
+
+        CpuUsage = $"{NewCpuUsage:0.0}%";
+        GpuUsage = $"{NewGpuUsage:0.0}%";
+        RamUsage = $"{NewRamUsage:0.0}%";
         // SystemUptime = GetSystemUptime();
         // DiskUsage = GetDiskUsage();
         // OnPropertyChanged(nameof(DiskUsage));
@@ -248,6 +249,14 @@ public partial class MainViewModel : ObservableRecipient
             return "N/A";
         }
     }
-
-
+    public void Start()
+    {
+        if (!_timer.IsEnabled)
+            _timer.Start();
+    }
+    public void Stop()
+    {
+        if (_timer.IsEnabled)
+            _timer.Stop();
+    }
 }

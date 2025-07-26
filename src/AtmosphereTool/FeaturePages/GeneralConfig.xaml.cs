@@ -1,15 +1,20 @@
 using AtmosphereTool.Helpers;
 using AtmosphereTool.Views;
 
-using System.Diagnostics;
-using System.ServiceProcess;
-using WinResLoader = Windows.ApplicationModel.Resources.ResourceLoader;
 
+using Microsoft.UI;
 // using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
+using CommunityToolkit.WinUI.Controls;
 
+using System.Diagnostics;
+using System.ServiceProcess;
+using System.Threading.Tasks;
 
+using WinResLoader = Windows.ApplicationModel.Resources.ResourceLoader;
 
 namespace AtmosphereTool.FeaturePages;
 
@@ -30,6 +35,58 @@ public sealed partial class GeneralConfig : Page
         LocalizeControls();
     }
 
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+        if (e.Parameter == null || e.Parameter.ToString() == string.Empty) { return; }
+        if (e.Parameter is string target)
+        {
+            var elementMap = new Dictionary<string, FrameworkElement>
+            {
+                { "Copilot", AIExpander },
+                { "Recall", AIExpander },
+                { "Updates", AutoWinUpdates },
+                { "BackgroundApps", BackgroundApps },
+                { "DeliveryOptimizations", DeliveryOptimizations },
+                { "FSOAndGameBar", FSOAndGameBar },
+                { "PhoneLink", PhoneLink },
+                { "SearchIndex", SearchIndex },
+                { "StoreAppArchiving", StoreAppArchiving },
+                { "SystemRestore", SystemRestore },
+                { "UpdateNotifications", UpdateNotifications },
+            };
+
+            if (elementMap.TryGetValue(target, out var element))
+            {
+                element.StartBringIntoView();
+                if (element is SettingsCard card)
+                {
+                    _ = HighlightBorderAsync(card);
+                }
+                if (element is SettingsExpander expander)
+                {
+                    var originalBrush = expander.BorderBrush;
+                    expander.BorderBrush = new SolidColorBrush(Colors.White);
+                    _ = Task.Delay(2000).ContinueWith(_ =>
+                    {
+                        DispatcherQueue.TryEnqueue(() =>
+                        {
+                            expander.BorderBrush = originalBrush;
+                        });
+                    });
+                }
+            }
+        }
+    }
+    private static async Task HighlightBorderAsync(Control control)
+    {
+        await Task.Delay(200);
+        control.StartBringIntoView();
+        var originalBrush = control.BorderBrush;
+        control.BorderBrush = new SolidColorBrush(Colors.White);
+        await Task.Delay(5000);
+        control.BorderBrush = originalBrush;
+    }
     private void LoadControls()
     {
         var usersid = RegistryHelper.GetCurrentUserSid();

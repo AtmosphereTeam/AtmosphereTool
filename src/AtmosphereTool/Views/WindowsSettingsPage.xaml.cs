@@ -1,13 +1,14 @@
 ﻿using AtmosphereTool.Helpers;
 using AtmosphereTool.ViewModels;
-
-using System.Diagnostics;
-using System.Text.RegularExpressions;
-
+using CommunityToolkit.WinUI.Controls;
+using Microsoft.UI;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 using Windows.Storage;
 
 namespace AtmosphereTool.Views;
@@ -24,31 +25,64 @@ public sealed partial class WindowsSettingsPage : Page
     {
         ViewModel = App.GetService<WindowsSettingsViewModel>();
         InitializeComponent();
-        Loaded += (s, e) =>
-        {
-            DispatcherQueue.TryEnqueue(async () =>
-            {
-                await InitializeControlsAsync();
-                LocalizeControls();
-            });
-        };
+        LoadSettings();
+        LocalizeControls();
     }
-
-    private async Task InitializeControlsAsync()
+    protected override void OnNavigatedTo(NavigationEventArgs e)
     {
-        if (AdminHelper.IsAdministrator)
+        base.OnNavigatedTo(e);
+        if (e.Parameter == null || e.Parameter.ToString() == string.Empty) { return; }
+        if (e.Parameter is string target)
         {
-            AdminWarningInfoBar.IsOpen = false;
-            ChangePfp.IsEnabled = true;
-            ChangeUser.IsEnabled = true;
-            EnableEnchancedSec.IsEnabled = true;
-            DisableEnchancedSec.IsEnabled = true;
-            HideUsername.IsEnabled = true;
-            ToggleHibernation.IsEnabled = true;
-            VisualBasicScript.IsEnabled = true;
-            LoadSettings();
+            var elementMap = new Dictionary<string, FrameworkElement>
+            {
+                { "ChangeUser", ChangeUserHeader },
+                { "ChangeUserPassword", ChangeUPassword },
+                { "ChangeUserPFP", CUPFP },
+                { "CreateNewUser", CreateNewHeader },
+                // System Settings
+                { "EnhancedSecurity", EnhancedSec },
+                { "HideUserNames", HideUser },
+                { "Hibernation", Hibernation },
+                { "VBS", VBSHeader },
+                { "NotificationCenter", NotiCenter },
+                { "Notification", Notification },
+            };
+
+            if (elementMap.TryGetValue(target, out var element))
+            {
+                element.StartBringIntoView();
+                if (element is SettingsCard card)
+                {
+                    if (element == ChangeUserHeader ||
+                        element == ChangeUPassword ||
+                        element == CUPFP ||
+                        element == CreateNewHeader)
+                    { _ = HighlightBorderAsync(card, settingsCard); }
+                    else { _ = HighlightBorderAsync(card, SystemExpander); }
+                }
+            }
         }
-        await Task.CompletedTask;
+    }
+    private async Task HighlightBorderAsync(SettingsCard card, SettingsExpander expander)
+    {
+
+        await Task.Delay(200);
+        expander.IsExpanded = true;
+        var originalExpanderThickness = expander.BorderThickness;
+        expander.BorderThickness = new Thickness(1);
+        await Task.Delay(300);
+        if (card == ChangeUserHeader || card == EnhancedSec) { card.Margin = new Thickness(0,2,0,0); }
+        card.StartBringIntoView();
+        var originalThickness = card.BorderThickness;
+        var originalBrush = card.BorderBrush;
+        card.BorderThickness = new Thickness(1);
+        card.BorderBrush = new SolidColorBrush(Colors.White);
+        await Task.Delay(5000);
+        expander.BorderThickness = originalExpanderThickness;
+        if (card == ChangeUserHeader || card == EnhancedSec) { card.Margin = new Thickness(0,0,0,0); }
+        card.BorderThickness = originalThickness;
+        card.BorderBrush = originalBrush;
     }
     private void LoadSettings()
     {

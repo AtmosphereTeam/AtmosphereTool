@@ -1,9 +1,10 @@
-﻿using System.Diagnostics;
-using System.Security.Principal;
-using AtmosphereTool.Helpers;
+﻿using AtmosphereTool.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 using Microsoft.Win32;
+using System.Diagnostics;
+using System.Security.Principal;
 
 namespace AtmosphereTool.Views;
 
@@ -18,6 +19,16 @@ public sealed partial class MainPage : Page
             AdminWarningInfoBar.IsOpen = true;
         }
         AcrylicStatusAsync();
+    }
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+        ViewModel.Start();
+    }
+    protected override void OnNavigatedFrom(NavigationEventArgs e)
+    {
+        base.OnNavigatedFrom(e);
+        ViewModel.Stop();
     }
     private async void TryEnableAcrylic(object sender, RoutedEventArgs e)
     {

@@ -6,6 +6,7 @@ using Microsoft.Win32;
 
 namespace AtmosphereTool.Uninstall
 {
+    // TODO: im not translating this
     public partial class Deameliorate
     {
 

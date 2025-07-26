@@ -1,9 +1,13 @@
 ﻿using AtmosphereTool.Helpers;
 using AtmosphereTool.ViewModels;
 
+using Microsoft.UI;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
+using CommunityToolkit.WinUI.Controls;
 
 namespace AtmosphereTool.Views;
 
@@ -21,6 +25,65 @@ public sealed partial class AtmosphereSettingsPage : Page
         LoadControls();
         LocalizeControls();
     }
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+        if (e.Parameter == null || e.Parameter.ToString() == string.Empty) { return;  }
+        if (e.Parameter is string target)
+        {
+            var elementMap = new Dictionary<string, FrameworkElement>
+            {
+                { "Defender", DefenderCard },
+                { "Mitigations", MitigationsHeader },
+                { "Updates", AutoUpdatesHeader },
+                { "Hibernation", HibernationHeader },
+                { "PowerSaving", PowerSavingHeader },
+                { "VBS", VBSHeader },
+                { "WinStartMenu", WinStartMenuHeader },
+                { "OldContextMenu", OldContextMenuHeader },
+                // Troubleshooting
+                { "TranslucentFlyouts", TranslucentFlyoutsHeader },
+                { "MicaExplorer", MicaExplorerHeader },
+                { "ConfigServices", ConfigServicesHeader },
+                { "ConfigTelemetry", ConfigTelemetryHeader },
+                { "RepairWindows", RepairWindowsHeader },
+            };
+
+            if (elementMap.TryGetValue(target, out var element))
+            {
+                element.StartBringIntoView();
+                if (element is SettingsCard card)
+                {
+                    if (element == MicaExplorerHeader ||
+                        element == ConfigServicesHeader ||
+                        element == ConfigTelemetryHeader ||
+                        element == RepairWindowsHeader)
+                    { _ = HighlightBorderAsync(card, TroubleshootingHeader); }
+                    else { _ = HighlightBorderAsync(card, AtmosphereConfigHeader); }
+                }
+            }
+        }
+    }
+    private async Task HighlightBorderAsync(SettingsCard card, SettingsExpander expander)
+    {
+
+        await Task.Delay(200);
+        expander.IsExpanded = true;
+        var originalExpanderThickness = expander.BorderThickness;
+        expander.BorderThickness = new Thickness(1);
+        await Task.Delay(300);
+        if (card == DefenderCard || card == TranslucentFlyoutsHeader) { card.Margin = new Thickness(0, 2, 0, 0); }
+        card.StartBringIntoView();
+        var originalThickness = card.BorderThickness;
+        var originalBrush = card.BorderBrush;
+        card.BorderThickness = new Thickness(1);
+        card.BorderBrush = new SolidColorBrush(Colors.White);
+        await Task.Delay(5000);
+        expander.BorderThickness = originalExpanderThickness;
+        if (card == DefenderCard || card == TranslucentFlyoutsHeader) { card.Margin = new Thickness(0, 0, 0, 0); }
+        card.BorderThickness = originalThickness;
+        card.BorderBrush = originalBrush;
+    }
     private void LoadControls()
     {
         // Unsubscribe
@@ -34,11 +97,11 @@ public sealed partial class AtmosphereSettingsPage : Page
         TranslucentFlyouts.Toggled -= TranslucentFlyoutsToggle;
         // Load state
         var options = RegistryHelper.Read("HKLM", "SOFTWARE\\AME\\Playbooks\\Applied\\{8bbb362c-858b-41d9-a9ea-83a4b9669c43}", "SelectedOptions") as string[] ?? [];
-        DefenderCard.Visibility = options.Contains("ameliorate") ? Visibility.Visible : Visibility.Collapsed;
-        AutoUpdatesHeader.Visibility = options.Contains("ameliorate") ? Visibility.Visible : Visibility.Collapsed;
-        ConfigServicesHeader.Visibility = options.Contains("ameliorate") ? Visibility.Visible : Visibility.Collapsed;
-        ConfigTelemetryHeader.Visibility = options.Contains("ameliorate") ? Visibility.Visible : Visibility.Collapsed;
-        RepairWindowsHeader.Visibility = options.Contains("ameliorate") ? Visibility.Visible : Visibility.Collapsed;
+        DefenderCard.Visibility = options.Contains("ameliorate") ? Visibility.Collapsed : Visibility.Visible;
+        AutoUpdatesHeader.Visibility = options.Contains("ameliorate") ? Visibility.Collapsed : Visibility.Visible;
+        ConfigServicesHeader.Visibility = options.Contains("ameliorate") ? Visibility.Collapsed : Visibility.Visible;
+        ConfigTelemetryHeader.Visibility = options.Contains("ameliorate") ? Visibility.Collapsed : Visibility.Visible;
+        RepairWindowsHeader.Visibility = options.Contains("ameliorate") ? Visibility.Collapsed : Visibility.Visible;
         ToggleUpdates.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "AUOptions") == null;
         AtmosphereUI.IsOn = options.Contains("modify-ui");
         ToggleHibernation.IsOn = PowerHelper.IsHibernationEnabled();

@@ -12,18 +12,6 @@
         <Grid x:Name="ContentArea">
             <StackPanel>
                 <StackPanel>
-                    <InfoBar x:Uid="AdminWarningInfoBar"
-                             x:Name="AdminWarningInfoBar"
-                             Title="Administrator privileges required"
-                             Message="Some settings are disabled because this app is not running as administrator."
-                             Severity="Informational"
-                             IsOpen="False"
-                             Margin="0,0,0,10"
-                             HorizontalAlignment="Stretch">
-                        <InfoBar.ActionButton>
-                            <Button Content="Restart as Administrator" Click="{x:Bind helpers:AdminHelper.RestartAsAdministrator}"/>
-                        </InfoBar.ActionButton>
-                    </InfoBar>
                     <TextBlock x:Name="TopTitle" Text="Windows Settings" FontWeight="Bold"/>
                     <controls:SettingsExpander x:Name="settingsCard"
                                                VerticalAlignment="Top"

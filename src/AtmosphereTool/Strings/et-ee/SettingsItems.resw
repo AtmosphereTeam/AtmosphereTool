@@ -117,123 +117,94 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppDisplayName" xml:space="preserve">
-    <value>AtmosphereTool</value>
+  <data name="ChangeUser" xml:space="preserve">
+    <value>Muuda Kasutajanime</value>
   </data>
-  <data name="AppDescription" xml:space="preserve">
-    <value>Atmosphere Tool is the settings but for AtmosphereOS</value>
+  <data name="ChangeUserPassword" xml:space="preserve">
+    <value>Muuda Kasutaja Parooli</value>
   </data>
-  <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Hardware</value>
+  <data name="ChangeUserPFP" xml:space="preserve">
+    <value>Muuda Kasutaja Pilti</value>
   </data>
-  <data name="Shell_Blank.Content" xml:space="preserve">
-    <value>Windows Settings</value>
+  <data name="CreateNewUser" xml:space="preserve">
+    <value>Loo Uus Kasutaja</value>
   </data>
-  <data name="Settings_Personalization.Text" xml:space="preserve">
-    <value>Personalization</value>
+  <data name="EnhancedSecurity" xml:space="preserve">
+    <value>Täiustatud Turvalisus</value>
   </data>
-  <data name="Settings_Theme.Text" xml:space="preserve">
-    <value>Theme</value>
+  <data name="HideUserNames" xml:space="preserve">
+    <value>Peida Kasutajanimed</value>
   </data>
-  <data name="Settings_Theme_Light.Content" xml:space="preserve">
-    <value>Light</value>
+  <data name="Hibernation" xml:space="preserve">
+    <value>Hibernation</value>
   </data>
-  <data name="Settings_Theme_Dark.Content" xml:space="preserve">
-    <value>Dark</value>
+  <data name="VBS" xml:space="preserve">
+    <value>Visual Basic Skript</value>
   </data>
-  <data name="Settings_Theme_Default.Content" xml:space="preserve">
-    <value>Default</value>
+  <data name="NotificationCenter" xml:space="preserve">
+    <value>Teavituste Keskus</value>
   </data>
-  <data name="Settings_About.Text" xml:space="preserve">
-    <value>Atmosphere Tool</value>
+  <data name="Copilot" xml:space="preserve">
+    <value>Copilot</value>
   </data>
-  <data name="Settings_AboutDescription.Text" xml:space="preserve">
-    <value>Atmosphere Tool is the settings but for AtmosphereOS</value>
+  <data name="Recall" xml:space="preserve">
+    <value>Recall</value>
   </data>
-  <data name="SettingsPage_AtmosphereOSLink.NavigateUri" xml:space="preserve">
-    <value>https://github.com/Goldendraggon/Atmosphere</value>
+  <data name="BackgroundApps" xml:space="preserve">
+    <value>Taustarakendused</value>
   </data>
-  <data name="SettingsPage_AtmosphereOSLink.Content" xml:space="preserve">
-    <value>AtmosphereOS Github</value>
+  <data name="DeliveryOptimizations" xml:space="preserve">
+    <value>Kohaletoimetamise Optimeerimised</value>
   </data>
-  <data name="SettingsPage_AtmosphereToolLink.Content" xml:space="preserve">
-    <value>AtmosphereTool Github</value>
+  <data name="FSOAndGameBar" xml:space="preserve">
+    <value>FSO Ja GameBar</value>
   </data>
-  <data name="SettingsPage_AtmosphereToolLink.NavigateUri" xml:space="preserve">
-    <value>https://github.com/Goldendraggon/AtmosphereTool</value>
+  <data name="PhoneLink" xml:space="preserve">
+    <value>Phone Link</value>
   </data>
-  <data name="SettingsPage_AtmosphereDiscordLink.Content" xml:space="preserve">
-    <value>Join our Discord</value>
+  <data name="SearchIndex" xml:space="preserve">
+    <value>Otsingu Indekseerimine</value>
   </data>
-  <data name="SettingsPage_AtmosphereDiscordLink.NavigateUri" xml:space="preserve">
-    <value>https://discord.gg/JRsCSV8Tqu</value>
+  <data name="StoreAppArchiving" xml:space="preserve">
+    <value>Store Rakenduste Arhiveerimine</value>
   </data>
-  <data name="AppNotificationSamplePayload" xml:space="preserve">
-    <value>&lt;toast launch="action=ToastClick"&gt;
-  &lt;visual&gt;
-    &lt;binding template="ToastGeneric"&gt;
-      &lt;text&gt;Atmosphere Tool Is Launching&lt;/text&gt;
-      &lt;text&gt;&lt;/text&gt;
-      &lt;image placement="appLogoOverride" hint-crop="circle" src="{0}Assets/WindowIcon.ico"/&gt;
-    &lt;/binding&gt;
-  &lt;/visual&gt;
-&lt;/toast&gt;</value>
+  <data name="SystemRestore" xml:space="preserve">
+    <value>Süsteemi Taaste</value>
   </data>
-  <data name="Shell_AtmosphereSettings.Content" xml:space="preserve">
-    <value>Atmosphere</value>
+  <data name="UpdateNotifications" xml:space="preserve">
+    <value>Uuenduste Märguanded</value>
   </data>
-  <data name="AdminWarningInfoBar.Title" xml:space="preserve">
-    <value>Administrator privileges required</value>
+  <data name="Mitigations" xml:space="preserve">
+    <value>Mitigatsioonid</value>
   </data>
-  <data name="AdminWarningInfoBar.Message" xml:space="preserve">
-    <value>Settings are disabled because the we can not load their configuration.</value>
+  <data name="PowerSaving" xml:space="preserve">
+    <value>Energiasäästurežiim</value>
   </data>
-  <data name="AcrylicInfoBar.Title" xml:space="preserve">
-    <value>Enabling window backdrops is recommended</value>
+  <data name="WinStartMenu" xml:space="preserve">
+    <value>Start Menüü</value>
   </data>
-  <data name="AcrylicInfoBar.Message" xml:space="preserve">
-    <value>Would you like to enable window backdrops?</value>
+  <data name="Defender" xml:space="preserve">
+    <value>Defender</value>
   </data>
-  <data name="CPU.Text" xml:space="preserve">
-    <value>Processor</value>
+  <data name="Updates" xml:space="preserve">
+    <value>Windowsi Uuendused</value>
   </data>
-  <data name="GPU.Text" xml:space="preserve">
-    <value>Graphics Card</value>
+  <data name="ConfigServices" xml:space="preserve">
+    <value>Muuda Teenuseid</value>
   </data>
-  <data name="DISK.Text" xml:space="preserve">
-    <value>Disk</value>
+  <data name="ConfigTelemetry" xml:space="preserve">
+    <value>Muuda Telemeetriat</value>
   </data>
-  <data name="CPUU.Text" xml:space="preserve">
-    <value>CPU Usage</value>
+  <data name="RepairWindows" xml:space="preserve">
+    <value>Paranda Windowsi</value>
   </data>
-  <data name="RAMU.Text" xml:space="preserve">
-    <value>RAM Usage</value>
+  <data name="OldContextMenu" xml:space="preserve">
+    <value>Vana Kontekstimenüüd</value>
   </data>
-  <data name="DISKU.Text" xml:space="preserve">
-    <value>Disk Usage</value>
+  <data name="MicaExplorer" xml:space="preserve">
+    <value>Mica Explorer</value>
   </data>
-  <data name="SYSUP.Text" xml:space="preserve">
-    <value>System Uptime</value>
-  </data>
-  <data name="Loading" xml:space="preserve">
-    <value>Loading...</value>
-  </data>
-  <data name="AdminWarningButton.Content" xml:space="preserve">
-    <value>Restart as Administrator</value>
-  </data>
-  <data name="SettingsPage_ViewApplicationLogs.Content" xml:space="preserve">
-    <value>View Logs</value>
-  </data>
-  <data name="SettingsPage_CheckForUpdates.Content" xml:space="preserve">
-    <value>Check for Updates</value>
-  </data>
-  <data name="LogsView_OpenLogsFolder.Content" xml:space="preserve">
-    <value>Open Logs Folder</value>
-  </data>
-  <data name="Shell_GeneralConfig.Content" xml:space="preserve">
-    <value>General Configuration</value>
-  </data>
-  <data name="SearchBox.PlaceholderText" xml:space="preserve">
-    <value>Search Settings</value>
+  <data name="Translucent Flyouts" xml:space="preserve">
+    <value>Translucent Flyouts</value>
   </data>
 </root>
