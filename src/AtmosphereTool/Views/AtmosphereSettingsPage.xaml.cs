@@ -1,5 +1,6 @@
 ﻿using AtmosphereTool.Helpers;
 using AtmosphereTool.ViewModels;
+using AtmosphereTool.SubPages;
 
 using Microsoft.UI;
 using Microsoft.UI.Dispatching;
@@ -28,6 +29,11 @@ public sealed partial class AtmosphereSettingsPage : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
+        LogHelper.LogInfo("Navigated To AtmosphereSettings");
+        if (App.MainWindow.Content is ShellPage shellPage)
+        {
+            shellPage.SetBreadcrumb(new Folder { Name = "Atmosphere", Page = typeof(AtmosphereSettingsPage) });
+        }
         if (e.Parameter == null || e.Parameter.ToString() == string.Empty) { return;  }
         if (e.Parameter is string target)
         {
@@ -433,7 +439,7 @@ public sealed partial class AtmosphereSettingsPage : Page
         if (toggle.IsOn)
         {
             LogHelper.LogInfo("Toggled Translucent Explorer on");
-            await CommandHelper.StartInCmd("regsvr32 /u \"C:\\Windows\\AtmosphereDesktop\\4. Interface Tweaks\\File Explorer Customization\\Mica Explorer\\ExplorerBlurMica.dll\"");
+            await CommandHelper.StartInCmd("regsvr32 \"C:\\Windows\\AtmosphereDesktop\\4. Interface Tweaks\\File Explorer Customization\\Mica Explorer\\ExplorerBlurMica.dll\"");
             LogHelper.LogInfo("Restarting Explorer...");
             await CommandHelper.StartInCmd("taskkill /f /im explorer.exe");
             await CommandHelper.StartInCmd("explorer");
@@ -441,7 +447,7 @@ public sealed partial class AtmosphereSettingsPage : Page
         else
         {
             LogHelper.LogInfo("Toggled Translucent Explorer off");
-            await CommandHelper.StartInCmd("regsvr32 \"C:\\Windows\\AtmosphereDesktop\\4. Interface Tweaks\\File Explorer Customization\\Mica Explorer\\ExplorerBlurMica.dll\"");
+            await CommandHelper.StartInCmd("regsvr32 /u \"C:\\Windows\\AtmosphereDesktop\\4. Interface Tweaks\\File Explorer Customization\\Mica Explorer\\ExplorerBlurMica.dll\"");
             LogHelper.LogInfo("Restarting Explorer...");
             await CommandHelper.StartInCmd("taskkill /f /im explorer.exe");
             await CommandHelper.StartInCmd("explorer");
@@ -467,7 +473,8 @@ public sealed partial class AtmosphereSettingsPage : Page
         LogHelper.LogInfo("Uninstall Atmosphere Clicked");
         if (App.MainWindow.Content is ShellPage shellPage)
         {
-            shellPage.RootFrame.Navigate(typeof(SubPages.UninstallProgressPage));
+            shellPage.AddBreadcrumb(new Folder { Name = "Uninstall", Page = typeof(UninstallProgressPage) });
+            shellPage.RootFrame.Navigate(typeof(UninstallProgressPage));
         }
     }
     private void ReplaceOption(string option, string newOption)

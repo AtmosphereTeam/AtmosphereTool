@@ -187,4 +187,134 @@ disabling C-states in BIOS.</value>
   <data name="UpdateNotifications" xml:space="preserve">
     <value>Windows Update Notifications</value>
   </data>
+  <data name="AltTabCard" xml:space="preserve">
+    <value>Modern Alt-Tab</value>
+  </data>
+  <data name="ContextMenusExpander" xml:space="preserve">
+    <value>Context Menus</value>
+  </data>
+  <data name="ExtractCardDescription" xml:space="preserve">
+    <value>Adds the extract option to context menu.</value>
+  </data>
+  <data name="ExtractCardHeader" xml:space="preserve">
+    <value>Extract</value>
+  </data>
+  <data name="RunWithPriorityCardHeader" xml:space="preserve">
+    <value>Run With Priority</value>
+  </data>
+  <data name="RunWithPriorityCardDescription" xml:space="preserve">
+    <value>Adds the run with priority options to context menu.</value>
+  </data>
+  <data name="DebloatSendToCard" xml:space="preserve">
+    <value>Debloat Send To Context Menu</value>
+  </data>
+  <data name="TakeOwnershipCardHeader" xml:space="preserve">
+    <value>Take Ownership</value>
+  </data>
+  <data name="TakeOwnershipCardDescription" xml:space="preserve">
+    <value>Adds the take ownership option to context menu.</value>
+  </data>
+  <data name="AddTerminalsCardHeader" xml:space="preserve">
+    <value>Add Terminals</value>
+  </data>
+  <data name="AddTerminalsCardDescription" xml:space="preserve">
+    <value>Adds new terminal run as options to context menu.</value>
+  </data>
+  <data name="AddTerminalsExtraText" xml:space="preserve">
+    <value>You can configure Terminals here.</value>
+  </data>
+  <data name="AddTerminalsAll" xml:space="preserve">
+    <value>Add Terminals</value>
+  </data>
+  <data name="AddTerminalsNoWinTerminal" xml:space="preserve">
+    <value>Add Terminals (no Windows Terminal)</value>
+  </data>
+  <data name="AddTerminalsDisable" xml:space="preserve">
+    <value>Disable Terminals</value>
+  </data>
+  <data name="OldContextMenuHeader" xml:space="preserve">
+    <value>Old Context Menu</value>
+  </data>
+  <data name="EdgeSwipeCardHeader" xml:space="preserve">
+    <value>Edge Swipe</value>
+  </data>
+  <data name="EdgeSwipeCardDescription" xml:space="preserve">
+    <value>Edge Swipe Is A Feature For Tablets, Laptops To Win + A or Alt + Tab</value>
+  </data>
+  <data name="FileExplorerCustomizationsExpander" xml:space="preserve">
+    <value>File Explorer Customizations</value>
+  </data>
+  <data name="AppIconsOnThumbnailsCard" xml:space="preserve">
+    <value>App Icons On Thumbnails</value>
+  </data>
+  <data name="AutomaticFolderDiscoveryCard" xml:space="preserve">
+    <value>Automatic Folder Discovery</value>
+  </data>
+  <data name="CompactViewCard" xml:space="preserve">
+    <value>Compact View</value>
+  </data>
+  <data name="FoldersInThisPCCard" xml:space="preserve">
+    <value>Folders In This PC</value>
+  </data>
+  <data name="GalleryCard" xml:space="preserve">
+    <value>Gallery</value>
+  </data>
+  <data name="QuickAccessCard" xml:space="preserve">
+    <value>Quick Access</value>
+  </data>
+  <data name="RemovableDrivesInSidebarCard" xml:space="preserve">
+    <value>Removable Drives In Sidebar</value>
+  </data>
+  <data name="OldFlyoutsExpander" xml:space="preserve">
+    <value>Old Flyouts</value>
+  </data>
+  <data name="OldBatteryFlyoutCard" xml:space="preserve">
+    <value>Old Battery Flyout</value>
+  </data>
+  <data name="OldDateAndTimeFlyout" xml:space="preserve">
+    <value>Old Date And Time Flyout</value>
+  </data>
+  <data name="OldVolumeFlyoutCard" xml:space="preserve">
+    <value>Old Volume Flyout</value>
+  </data>
+  <data name="ShortcutIconCard" xml:space="preserve">
+    <value>Shortcut Icon</value>
+  </data>
+  <data name="ShortcutIconExtraText" xml:space="preserve">
+    <value>You can change the icon here.</value>
+  </data>
+  <data name="ShortcutIconDefault" xml:space="preserve">
+    <value>Default Icon</value>
+  </data>
+  <data name="ShortcutIconClassic" xml:space="preserve">
+    <value>Classic Icon</value>
+  </data>
+  <data name="ShortcutIconDisable" xml:space="preserve">
+    <value>Disable Icon (security risk)</value>
+  </data>
+  <data name="ShortcutNameCardHeader" xml:space="preserve">
+    <value>Shortcut Name</value>
+  </data>
+  <data name="ShortcutNameCardDescription" xml:space="preserve">
+    <value>Disable The Automatic Shortcut Name When Making A New Shortcut.</value>
+  </data>
+  <data name="SnapLayoutsCard" xml:space="preserve">
+    <value>Snap Layouts</value>
+  </data>
+  <data name="VerboseStatusMessageCard" xml:space="preserve">
+    <value>Verbose Status Message</value>
+  </data>
+  <data name="VisualEffectsCard" xml:space="preserve">
+    <value>Visual Effects (Animations)</value>
+  </data>
+  <data name="VisualEffectsExtraText" xml:space="preserve">
+    <value>If you want to configure visual effects (animations) yourself 
+then click the button below.</value>
+  </data>
+  <data name="VisualEffectsConfig" xml:space="preserve">
+    <value>Configure</value>
+  </data>
+  <data name="MoreOptions" xml:space="preserve">
+    <value>More Options</value>
+  </data>
 </root>

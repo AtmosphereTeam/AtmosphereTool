@@ -8,17 +8,18 @@
     xmlns:vm="using:AtmosphereTool.ViewModels"
     xmlns:helpers="using:AtmosphereTool.Helpers"
     mc:Ignorable="d">
-    <ScrollView Padding="0,0,0,20">
+    <ScrollView Padding="10,0,10,24">
         <Grid x:Name="ContentArea">
             <StackPanel>
                 <StackPanel>
-                    <TextBlock x:Name="TopTitle" Text="Windows Settings" FontWeight="Bold"/>
                     <controls:SettingsExpander x:Name="settingsCard"
                                                VerticalAlignment="Top"
                                                Description="Change settings related to users."
                                                Header="Change User Settings"
                                                Margin="0,20,0,0">
-                        <FontIcon Glyph="&#xEF58;"/>
+                        <controls:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xEF58;"/>
+                        </controls:SettingsExpander.HeaderIcon>
                         <controls:SettingsExpander.Items>
                             <controls:SettingsCard x:Name="ChangeUserHeader" Header="Change Username">
                                 <controls:SettingsCard.HeaderIcon>
@@ -77,7 +78,9 @@
                                                Description="Change System Settings"
                                                Header="System Settings"
                                                Margin="0,5,0,0">
-                        <FontIcon Glyph="&#xE770;"/>
+                        <controls:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE770;"/>
+                        </controls:SettingsExpander.HeaderIcon>
                         <controls:SettingsExpander.Items>
                             <!-- Made a typo... -->
                             <controls:SettingsCard x:Name="EnhancedSec" Header="Enhanced Security">

@@ -21,6 +21,7 @@ public class PageService : IPageService
         Configure<AtmosphereSettingsViewModel, AtmosphereSettingsPage>();
         // You have to add namespace if you want to register without viewmodel
         Configure("AtmosphereTool.FeaturePages.GeneralConfig", typeof(GeneralConfig));
+        Configure("AtmosphereTool.FeaturePages.InterfaceTweaks", typeof(InterfaceTweaks));
     }
 
     public Type GetPageType(string key)

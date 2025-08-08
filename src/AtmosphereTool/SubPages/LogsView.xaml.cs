@@ -37,9 +37,12 @@ public sealed partial class LogsView : Page
     {
         var files = Directory.GetFiles(LogHelper.LogDirectory, "*.md");
         LogFiles.Clear();
+        // This is done so the most recent log shows first.
+        Array.Reverse(files);
         foreach (var file in files)
         {
             var filename = Path.GetFileName(file);
+            if (filename == LogHelper.CurrentLogFile) { continue; }
             LogFiles.Add(new LogEntry
             {
                 DisplayName = filename.Equals("latest.md", StringComparison.OrdinalIgnoreCase)

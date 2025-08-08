@@ -1,13 +1,12 @@
 ﻿using AtmosphereTool.Contracts.Services;
+using AtmosphereTool.FeaturePages;
 using AtmosphereTool.Helpers;
 using AtmosphereTool.ViewModels;
-using CommunityToolkit.WinUI;
-using Microsoft.Extensions.Logging;
-using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.Windows.ApplicationModel.Resources;
+using System.Collections.ObjectModel;
 using Windows.System;
 using WinResLoader = Windows.ApplicationModel.Resources.ResourceLoader;
 
@@ -87,7 +86,7 @@ public sealed partial class ShellPage : Page
     }
 
     // Search Box
-    private readonly WinResLoader searchBoxResourceLoader = WinResLoader.GetForViewIndependentUse("SettingsItems");
+    private readonly WinResLoader searchBoxResourceLoader = WinResLoader.GetForViewIndependentUse("SearchItems");
 
     public string GetLocalizedString(string key)
     {
@@ -95,10 +94,10 @@ public sealed partial class ShellPage : Page
         return string.IsNullOrEmpty(localized) ? key : localized;
     }
 
-    private CancellationTokenSource? _cts;
+    // private CancellationTokenSource? _cts;
 
-    private readonly List<SettingItem> AllSettings = new()
-    {
+    private readonly List<SettingItem> AllSettings =
+    [
         // WindowsSettingsPage
         new() { DisplayName = "Change Username", Key = "ChangeUser", Page = typeof(WindowsSettingsPage) },
         new() { DisplayName = "Change User Password", Key = "ChangeUserPassword", Page = typeof(WindowsSettingsPage) },
@@ -110,29 +109,54 @@ public sealed partial class ShellPage : Page
         new() { DisplayName = "Visual Basic Script", Key = "VBS", Page = typeof(WindowsSettingsPage) },
         new() { DisplayName = "Notification Center", Key = "NotificationCenter", Page = typeof(WindowsSettingsPage) },
         // GeneralConfig
-        new() { DisplayName = "Copilot", Key = "Copilot", Page = typeof(FeaturePages.GeneralConfig) },
-        new() { DisplayName = "Recall", Key = "Recall", Page = typeof(FeaturePages.GeneralConfig) },
-        new() { DisplayName = "Background Apps", Key = "BackgroundApps", Page = typeof(FeaturePages.GeneralConfig) },
-        new() { DisplayName = "Delivery Optimizations", Key = "DeliveryOptimizations", Page = typeof(FeaturePages.GeneralConfig) },
-        new() { DisplayName = "FSO And GameBar", Key = "FSOAndGameBar", Page = typeof(FeaturePages.GeneralConfig) },
-        new() { DisplayName = "Phone Link", Key = "PhoneLink", Page = typeof(FeaturePages.GeneralConfig) },
-        new() { DisplayName = "Search Indexing", Key = "SearchIndex", Page = typeof(FeaturePages.GeneralConfig) },
-        new() { DisplayName = "Store App Archiving", Key = "StoreAppArchiving", Page = typeof(FeaturePages.GeneralConfig) },
-        new() { DisplayName = "System Restore", Key = "SystemRestore", Page = typeof(FeaturePages.GeneralConfig) },
-        new() { DisplayName = "Update Notifications", Key = "UpdateNotifications", Page = typeof(FeaturePages.GeneralConfig) },
-    };
+        new() { DisplayName = "Copilot", Key = "Copilot", Page = typeof(GeneralConfig) },
+        new() { DisplayName = "Recall", Key = "Recall", Page = typeof(GeneralConfig) },
+        new() { DisplayName = "Background Apps", Key = "BackgroundApps", Page = typeof(GeneralConfig) },
+        new() { DisplayName = "Delivery Optimizations", Key = "DeliveryOptimizations", Page = typeof(GeneralConfig) },
+        new() { DisplayName = "FSO And GameBar", Key = "FSOAndGameBar", Page = typeof(GeneralConfig) },
+        new() { DisplayName = "Phone Link", Key = "PhoneLink", Page = typeof(GeneralConfig) },
+        new() { DisplayName = "Search Indexing", Key = "SearchIndex", Page = typeof(GeneralConfig) },
+        new() { DisplayName = "Store App Archiving", Key = "StoreAppArchiving", Page = typeof(GeneralConfig) },
+        new() { DisplayName = "System Restore", Key = "SystemRestore", Page = typeof(GeneralConfig) },
+        new() { DisplayName = "Update Notifications", Key = "UpdateNotifications", Page = typeof(GeneralConfig) },
+    ];
 
-    private List<SettingItem> GetAtmosphereSettings()
+    private static List<SettingItem> GetAtmosphereSettings()
     {
+        // TODO: Translate
         var options = RegistryHelper.Read("HKLM", "SOFTWARE\\AME\\Playbooks\\Applied\\{8bbb362c-858b-41d9-a9ea-83a4b9669c43}", "SelectedOptions") as string[] ?? [];
         if (options.Length == 0) { return []; } // is user running atmosphere
-        var settings = new List<SettingItem>();
-        settings.Add(new() { DisplayName = "Mitigations", Key = "Mitigations", Page = typeof(AtmosphereSettingsPage) });
-        settings.Add(new() { DisplayName = "Power Saving", Key = "PowerSaving", Page = typeof(AtmosphereSettingsPage) });
-        settings.Add(new() { DisplayName = "Start Menu", Key = "WinStartMenu", Page = typeof(AtmosphereSettingsPage) });
-        if (Environment.OSVersion.Version.Build > 22000) { settings.Add(new() { DisplayName = "Old Context Menu", Key = "OldContextMenu", Page = typeof(AtmosphereSettingsPage) }); }
-        settings.Add(new() { DisplayName = "Translucent Flyouts", Key = "TranslucentFlyouts", Page = typeof(AtmosphereSettingsPage) });
-        settings.Add(new() { DisplayName = "Mica Explorer", Key = "MicaExplorer", Page = typeof(AtmosphereSettingsPage) });
+        var settings = new List<SettingItem>
+        { 
+            new() { DisplayName = "Mitigations", Key = "Mitigations", Page = typeof(AtmosphereSettingsPage) },
+            new() { DisplayName = "Power Saving", Key = "PowerSaving", Page = typeof(AtmosphereSettingsPage) },
+            new() { DisplayName = "Start Menu", Key = "WinStartMenu", Page = typeof(AtmosphereSettingsPage) },
+            new() { DisplayName = "Translucent Flyouts", Key = "TranslucentFlyouts", Page = typeof(AtmosphereSettingsPage) },
+            new() { DisplayName = "Mica Explorer", Key = "MicaExplorer", Page = typeof(AtmosphereSettingsPage) },
+            new() { DisplayName = "Alt Tab", Key = "AltTab", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Extract", Key = "Extract", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Debloat Send To", Key = "DebloatSendTo", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Take Ownership", Key = "TakeOwnership", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Add Terminals", Key = "AddTerminals", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Edge Swipe", Key = "EdgeSwipe", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "App Icons On Thumbnails", Key = "AppIconsOnThumbnails", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Compact View", Key = "CompactView", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Gallery", Key = "Gallery", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Quick Access", Key = "QuickAccess", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Removable Drives In Sidebar", Key = "RemovableDrivesInSidebar", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Shortcut Icon", Key = "ShortcutIcon", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Shortcut Name", Key = "ShortcutName", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Snap Layouts", Key = "SnapLayouts", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Visual Effects", Key = "VisualEffects", Page = typeof(InterfaceTweaks) },
+            new() { DisplayName = "Verbose Status Message", Key = "VerboseStatusMessage", Page = typeof(InterfaceTweaks) }
+        };
+        if (Environment.OSVersion.Version.Build < 22000) 
+        { 
+            settings.Add(new() { DisplayName = "Old Context Menu", Key = "OldContextMenu", Page = typeof(AtmosphereSettingsPage) });
+            settings.Add(new() { DisplayName = "Old Battery Flyout", Key = "OldBatteryFlyout", Page = typeof(InterfaceTweaks) });
+            settings.Add(new() { DisplayName = "Old Date And Time Flyout", Key = "OldDateAndTimeFlyout", Page = typeof(InterfaceTweaks) });
+            settings.Add(new() { DisplayName = "Old Volume Flyout", Key = "OldVolumeFlyout", Page = typeof(InterfaceTweaks) });
+        }
         if (options.Contains("ameliorate")) { return settings; }
         settings.Add(new() { DisplayName = "Defender", Key = "Defender", Page = typeof(AtmosphereSettingsPage) });
         settings.Add(new() { DisplayName = "Windows Updates", Key = "Updates", Page = typeof(AtmosphereSettingsPage) });
@@ -159,61 +183,43 @@ public sealed partial class ShellPage : Page
     }
 
 
-    private async void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
         if (args.Reason != AutoSuggestionBoxTextChangeReason.UserInput)
         {
             return;
         }
-        _cts?.Cancel();
-        _cts = new CancellationTokenSource();
-        var token = _cts.Token;
-        try
+        var text = sender.Text;
+        var splitText = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        var suitableItems = new List<string>(10);
+        // show all settings if nothing searched
+        if (string.IsNullOrWhiteSpace(text))
         {
-            // debounce so you only search 300ms after user stops typing
-            await Task.Delay(300, token);
-            var text = sender.Text;
-            var splitText = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            var suitableItems = new List<string>(10);
-            // show all settings if nothing searched
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                foreach (var setting in GetAllAvailableSettings())
-                {
-                    suitableItems.Add(setting.DisplayName);
-                }
-                if (!token.IsCancellationRequested)
-                {
-                    sender.ItemsSource = suitableItems;
-                }
-                return;
-            }
-            // if searched
             foreach (var setting in GetAllAvailableSettings())
             {
-                bool found = true;
-                foreach (var key in splitText)
-                {
-                    if (!setting.DisplayName.Contains(key, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        found = false;
-                        break;
-                    }
-                }
-                if (found)
-                {
-                    suitableItems.Add(setting.DisplayName);
-                }
+                suitableItems.Add(setting.DisplayName);
             }
-            if (!token.IsCancellationRequested)
-            {
-                sender.ItemsSource = suitableItems;
-            }
+            sender.ItemsSource = suitableItems;
+            return;
         }
-        catch (TaskCanceledException)
+        // if searched
+        foreach (var setting in GetAllAvailableSettings())
         {
-            // ignore
+            bool found = true;
+            foreach (var key in splitText)
+            {
+                if (!setting.DisplayName.Contains(key, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    found = false;
+                    break;
+                }
+            }
+            if (found)
+            {
+                suitableItems.Add(setting.DisplayName);
+            }
         }
+        sender.ItemsSource = suitableItems;
     }
     private void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
@@ -243,10 +249,55 @@ public sealed partial class ShellPage : Page
             }
         }
     }
+
+    // Breadcrumb bar
+    private void BreadcrumbClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
+    {
+        if (_breadcrumbs is not ObservableCollection<Folder> items) { return; }
+        for (int i = items.Count - 1; i >= args.Index + 1; i--)
+        {
+            items.RemoveAt(i);
+        }
+        if (App.MainWindow.Content is ShellPage shellPage)
+        {
+            shellPage.RootFrame.Navigate(items[args.Index].Page);
+        }
+    }
+
+    private ObservableCollection<Folder> _breadcrumbs = [];
+    public ObservableCollection<Folder> Breadcrumbs
+    {
+        get => _breadcrumbs;
+        set { _breadcrumbs = value; }
+    }
+
+
+    public void SetBreadcrumb(Folder crumb)
+    {
+        _breadcrumbs.Clear();
+        _breadcrumbs.Add(crumb);
+    }
+
+    public void AddBreadcrumb(Folder crumb)
+    {
+        _breadcrumbs.Add(crumb);
+    }
+
+    public void ClearBreadcrumbs()
+    {
+        _breadcrumbs.Clear();
+    }
+
 }
 public class SettingItem
 {
     public required string DisplayName { get; set; } = string.Empty;
     public required string Key { get; set; }
     public required Type Page { get; set; }
+}
+
+public class Folder
+{
+    public string? Name { get; set; }
+    public Type? Page { get; set; }
 }

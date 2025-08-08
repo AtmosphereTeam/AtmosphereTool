@@ -31,6 +31,11 @@ public sealed partial class WindowsSettingsPage : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
+        LogHelper.LogInfo("Navigated To WindowsSettings");
+        if (App.MainWindow.Content is ShellPage shellPage)
+        {
+            shellPage.SetBreadcrumb(new Folder { Name = "Windows Settings", Page = typeof(WindowsSettingsPage) });
+        }
         if (e.Parameter == null || e.Parameter.ToString() == string.Empty) { return; }
         if (e.Parameter is string target)
         {
@@ -86,7 +91,6 @@ public sealed partial class WindowsSettingsPage : Page
     }
     private void LoadSettings()
     {
-        LogHelper.LogInfo("[WindowsSettingsPage] Loading Controls Settings");
         // Unsubscribe
         HideUsername.Toggled -= HideUsernameToggle;
         ToggleHibernation.Toggled -= HibernationToggle;
@@ -115,8 +119,6 @@ public sealed partial class WindowsSettingsPage : Page
     }
     private void LocalizeControls()
     {
-        LogHelper.LogInfo("[WindowsSettingsPage] Localizing Controls");
-        TopTitle.Text = _localizationHelper.GetLocalizedString("TopTitle");
         settingsCard.Header = _localizationHelper.GetLocalizedString("settingsCardHeader");
         settingsCard.Description = _localizationHelper.GetLocalizedString("settingsCardDescription");
         ChangeUserHeader.Header = _localizationHelper.GetLocalizedString("ChangeUserHeader");

@@ -23,7 +23,13 @@ public sealed partial class MainPage : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
+        LogHelper.LogInfo("Navigated To Hardware");
         ViewModel.Start();
+        if (App.MainWindow.Content is ShellPage shellPage)
+        {
+            shellPage.SetBreadcrumb(new Folder { Name = "Hardware", Page = typeof(MainPage) });
+        }
+
     }
     protected override void OnNavigatedFrom(NavigationEventArgs e)
     {

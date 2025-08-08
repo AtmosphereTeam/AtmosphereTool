@@ -11,7 +11,7 @@
     <Page.DataContext>
         <vm:MainViewModel x:Name="ViewModel" />
     </Page.DataContext>
-    <ScrollView Padding="0,0,0,20">
+    <ScrollView Padding="10,0,10,24">
         <Grid x:Name="ContentArea">
             
             <StackPanel>

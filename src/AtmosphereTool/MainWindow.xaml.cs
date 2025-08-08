@@ -1,9 +1,14 @@
-﻿using AtmosphereTool.Helpers;
+﻿using AtmosphereTool.Contracts.Services;
+using AtmosphereTool.Helpers;
+using AtmosphereTool.Services;
+
+
 using Microsoft.UI.Composition;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Win32;
+
 using Windows.UI.ViewManagement;
 using WinRT;
 
@@ -14,12 +19,13 @@ public sealed partial class MainWindow : WindowEx
     private readonly Microsoft.UI.Dispatching.DispatcherQueue dispatcherQueue;
 
     private readonly UISettings settings;
-    private WindowsSystemDispatcherQueueHelper? _queueHelper;
+    // private WindowsSystemDispatcherQueueHelper? _queueHelper;
     private DesktopAcrylicController? _acrylicController;
     private MicaController? _micaController;
     private SystemBackdropConfiguration? _backdropConfiguration;
     public string currentBackdrop;
 
+    private readonly IThemeSelectorService? _themeSelectorService;
 
     public MainWindow()
     {
@@ -40,6 +46,7 @@ public sealed partial class MainWindow : WindowEx
         currentBackdrop = RegistryHelper.Read("HKCU", "SOFTWARE\\AtmosphereTool\\Settings", "Backdrop") as string ?? "Acrylic";
         SetBackdrop(currentBackdrop);
 
+        _themeSelectorService = App.GetService<IThemeSelectorService>();
     }
 
     private async Task<bool> AcrylicStatusAsync()
@@ -91,30 +98,30 @@ public sealed partial class MainWindow : WindowEx
     }
 
 
-    private void TrySetAcrylicBackdrop()
-    {
-        _queueHelper = new WindowsSystemDispatcherQueueHelper();
-        _queueHelper.EnsureWindowsSystemDispatcherQueueController();
-
-        if (Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicController.IsSupported())
-        {
-            _backdropConfiguration = new Microsoft.UI.Composition.SystemBackdrops.SystemBackdropConfiguration
-            {
-                IsInputActive = true,
-                Theme = SystemBackdropTheme.Default
-            };
-            _acrylicController = new Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicController
-            {
-                Kind = DesktopAcrylicKind.Thin
-            };
-            _acrylicController.AddSystemBackdropTarget(this.As<ICompositionSupportsSystemBackdrop>());
-            _acrylicController.SetSystemBackdropConfiguration(_backdropConfiguration);
-        }
-        else
-        {
-            // I have no idea
-        }
-    }
+    // private void TrySetAcrylicBackdrop()
+    // {
+    //     _queueHelper = new WindowsSystemDispatcherQueueHelper();
+    //     _queueHelper.EnsureWindowsSystemDispatcherQueueController();
+    // 
+    //     if (Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicController.IsSupported())
+    //     {
+    //         _backdropConfiguration = new Microsoft.UI.Composition.SystemBackdrops.SystemBackdropConfiguration
+    //         {
+    //             IsInputActive = true,
+    //             Theme = SystemBackdropTheme.Default
+    //         };
+    //         _acrylicController = new Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicController
+    //         {
+    //             Kind = DesktopAcrylicKind.Thin
+    //         };
+    //         _acrylicController.AddSystemBackdropTarget(this.As<ICompositionSupportsSystemBackdrop>());
+    //         _acrylicController.SetSystemBackdropConfiguration(_backdropConfiguration);
+    //     }
+    //     else
+    //     {
+    //         // I have no idea
+    //     }
+    // }
 
     public void SetBackdrop(string tag)
     {
@@ -123,6 +130,20 @@ public sealed partial class MainWindow : WindowEx
         _micaController = null;
         _acrylicController?.Dispose();
         _acrylicController = null;
+        _backdropConfiguration = null;
+
+        var theme = (_themeSelectorService?.Theme) switch
+        {
+            ElementTheme.Dark => SystemBackdropTheme.Dark,
+            ElementTheme.Light => SystemBackdropTheme.Light,
+            _ => SystemBackdropTheme.Default,
+        };
+
+        _backdropConfiguration = new SystemBackdropConfiguration
+        {
+            IsInputActive = true,
+            Theme = theme
+        };
 
         switch (tag)
         {
@@ -130,11 +151,6 @@ public sealed partial class MainWindow : WindowEx
             case "Mica":
                 if (MicaController.IsSupported())
                 {
-                    _backdropConfiguration = new Microsoft.UI.Composition.SystemBackdrops.SystemBackdropConfiguration
-                    {
-                        IsInputActive = true,
-                        Theme = SystemBackdropTheme.Default
-                    };
                     _micaController = new MicaController
                     {
                         Kind = tag == "MicaAlt" ? MicaKind.BaseAlt : MicaKind.Base
@@ -149,11 +165,6 @@ public sealed partial class MainWindow : WindowEx
             case "Acrylic":
                 if (DesktopAcrylicController.IsSupported())
                 {
-                    _backdropConfiguration = new Microsoft.UI.Composition.SystemBackdrops.SystemBackdropConfiguration
-                    {
-                        IsInputActive = true,
-                        Theme = SystemBackdropTheme.Default
-                    };
                     _acrylicController = new DesktopAcrylicController
                     {
                         Kind = tag == "AcrylicThin" ? DesktopAcrylicKind.Thin : DesktopAcrylicKind.Base
@@ -179,7 +190,7 @@ public sealed partial class MainWindow : WindowEx
         _micaController = null;
 
         _backdropConfiguration = null;
-        _queueHelper = null; // Safe unless it wraps unmanaged resources
+        // _queueHelper = null; // Safe unless it wraps unmanaged resources
 
         RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\AtmosphereTool\\Settings", "Backdrop", currentBackdrop, "REG_SZ");
 

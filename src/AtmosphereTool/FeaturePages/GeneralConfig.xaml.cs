@@ -12,7 +12,6 @@ using CommunityToolkit.WinUI.Controls;
 
 using System.Diagnostics;
 using System.ServiceProcess;
-using System.Threading.Tasks;
 
 using WinResLoader = Windows.ApplicationModel.Resources.ResourceLoader;
 
@@ -38,6 +37,11 @@ public sealed partial class GeneralConfig : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
+        LogHelper.LogInfo("Navigated To GeneralConfig");
+        if (App.MainWindow.Content is ShellPage shellPage)
+        {
+            shellPage.SetBreadcrumb(new Folder { Name = "General Configuration", Page = typeof(GeneralConfig) });
+        }
         if (e.Parameter == null || e.Parameter.ToString() == string.Empty) { return; }
         if (e.Parameter is string target)
         {
@@ -102,9 +106,9 @@ public sealed partial class GeneralConfig : Page
         ToggleStoreAppArchiving.IsOn = RegistryHelper.Read("HKLM", "Software\\Policies\\Microsoft\\Windows\\Appx", "AllowAutomaticAppArchiving") as int? == 1;
         ToggleSystemRestore.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows NT\\SystemRestore", "DisableSR") == null;
         ToggleUpdateNotifications.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate", "SetAutoRestartNotificationDisable") == null &&
-        RegistryHelper.Read("HKLM", "SOFTWARE\\Microsoft\\WindowsUpdate\\UX\\Settings", "RestartNotificationsAllowed2") == null &&
-        RegistryHelper.Read("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate", "SetUpdateNotificationLevel") == null;
-        MoreOptions.Visibility = RegistryHelper.Read("HKLM", "SOFTWARE\\AME\\Playbooks\\Applied\\{8bbb362c-858b-41d9-a9ea-83a4b9669c43}", "SelectedOptions") is string[] options && options.Contains("ameliorate") ? Visibility.Visible : Visibility.Collapsed;
+            RegistryHelper.Read("HKLM", "SOFTWARE\\Microsoft\\WindowsUpdate\\UX\\Settings", "RestartNotificationsAllowed2") == null &&
+            RegistryHelper.Read("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate", "SetUpdateNotificationLevel") == null;
+        MoreOptions.Visibility = RegistryHelper.Exists("HKLM", "SOFTWARE\\AME\\Playbooks\\Applied\\{8bbb362c-858b-41d9-a9ea-83a4b9669c43}", "SelectedOptions") ? Visibility.Visible : Visibility.Collapsed;
         // Subscribe to events
         ToggleRecall.Toggled += RecallToggled;
         ToggleCopilot.Toggled += CopilotToggled;
@@ -490,7 +494,7 @@ public sealed partial class GeneralConfig : Page
     {
         if (App.MainWindow.Content is ShellPage shellPage)
         {
-            shellPage.RootFrame.Navigate(typeof(Views.AtmosphereSettingsPage));
+            shellPage.RootFrame.Navigate(typeof(AtmosphereSettingsPage));
         }
     }
 

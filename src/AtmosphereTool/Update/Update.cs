@@ -17,7 +17,7 @@ public class Update
             LogHelper.LogInfo("Checking for updates");
             using var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("curl/7.55.1");
-            var releasesUrl = "https://api.github.com/repos/Goldendraggon/AtmosphereTool/releases";
+            var releasesUrl = "https://api.github.com/repos/AtmosphereTeam/AtmosphereTool/releases";
             var response = await httpClient.GetAsync(releasesUrl);
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();

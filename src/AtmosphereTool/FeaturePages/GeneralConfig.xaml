@@ -9,7 +9,7 @@
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
 
-    <ScrollView Padding="0,0,0,24">
+    <ScrollView Padding="10,0,10,24">
         <Grid x:Name="ContentArea">
             <StackPanel>
                 <controls:SettingsExpander x:Name="AIExpander" Header="AI Features">

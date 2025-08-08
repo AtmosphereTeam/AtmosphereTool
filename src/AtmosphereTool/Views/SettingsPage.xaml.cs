@@ -1,7 +1,9 @@
 ﻿using AtmosphereTool.Helpers;
+using AtmosphereTool.SubPages;
 using AtmosphereTool.ViewModels;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 using System.Diagnostics;
 
 namespace AtmosphereTool.Views;
@@ -21,11 +23,22 @@ public sealed partial class SettingsPage : Page
         ViewModel.LoadBackdropOptions();
     }
 
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+        LogHelper.LogInfo("Navigated To Settings");
+        if (App.MainWindow.Content is ShellPage shellPage)
+        {
+            shellPage.SetBreadcrumb(new Folder { Name = "Settings", Page = typeof(SettingsPage) });
+        }
+    }
+
     private void ViewLogsClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         if (App.MainWindow.Content is ShellPage shellPage)
         {
-            shellPage.RootFrame.Navigate(typeof(SubPages.LogsView));
+            shellPage.AddBreadcrumb(new Folder { Name = "Logs", Page = typeof(LogsView) });
+            shellPage.RootFrame.Navigate(typeof(LogsView));
         }
     }
     private async void CheckforUpdatesClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)

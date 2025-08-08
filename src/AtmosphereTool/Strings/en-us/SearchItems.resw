@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChangeUser" xml:space="preserve">
-    <value>Muuda Kasutajanime</value>
+    <value>Change Username</value>
   </data>
   <data name="ChangeUserPassword" xml:space="preserve">
-    <value>Muuda Kasutaja Parooli</value>
+    <value>Change User Password</value>
   </data>
   <data name="ChangeUserPFP" xml:space="preserve">
-    <value>Muuda Kasutaja Pilti</value>
+    <value>Change User PFP</value>
   </data>
   <data name="CreateNewUser" xml:space="preserve">
-    <value>Loo Uus Kasutaja</value>
+    <value>Create New User</value>
   </data>
   <data name="EnhancedSecurity" xml:space="preserve">
-    <value>Täiustatud Turvalisus</value>
+    <value>Enhanced Security</value>
   </data>
   <data name="HideUserNames" xml:space="preserve">
-    <value>Peida Kasutajanimed</value>
+    <value>Hide User Names</value>
   </data>
   <data name="Hibernation" xml:space="preserve">
     <value>Hibernation</value>
   </data>
   <data name="VBS" xml:space="preserve">
-    <value>Visual Basic Skript</value>
+    <value>Visual Basic Script</value>
   </data>
   <data name="NotificationCenter" xml:space="preserve">
-    <value>Teavituste Keskus</value>
+    <value>Notification Center</value>
   </data>
   <data name="Copilot" xml:space="preserve">
     <value>Copilot</value>
@@ -151,60 +151,117 @@
     <value>Recall</value>
   </data>
   <data name="BackgroundApps" xml:space="preserve">
-    <value>Taustarakendused</value>
+    <value>Background Apps</value>
   </data>
   <data name="DeliveryOptimizations" xml:space="preserve">
-    <value>Kohaletoimetamise Optimeerimised</value>
+    <value>Delivery Optimizations</value>
   </data>
   <data name="FSOAndGameBar" xml:space="preserve">
-    <value>FSO Ja GameBar</value>
+    <value>FSO And GameBar</value>
   </data>
   <data name="PhoneLink" xml:space="preserve">
     <value>Phone Link</value>
   </data>
   <data name="SearchIndex" xml:space="preserve">
-    <value>Otsingu Indekseerimine</value>
+    <value>Search Indexing</value>
   </data>
   <data name="StoreAppArchiving" xml:space="preserve">
-    <value>Store Rakenduste Arhiveerimine</value>
+    <value>Store App Archiving</value>
   </data>
   <data name="SystemRestore" xml:space="preserve">
-    <value>Süsteemi Taaste</value>
+    <value>System Restore</value>
   </data>
   <data name="UpdateNotifications" xml:space="preserve">
-    <value>Uuenduste Märguanded</value>
+    <value>Update Notifications</value>
   </data>
   <data name="Mitigations" xml:space="preserve">
-    <value>Mitigatsioonid</value>
+    <value>Mitigations</value>
   </data>
   <data name="PowerSaving" xml:space="preserve">
-    <value>Energiasäästurežiim</value>
+    <value>Power Saving</value>
   </data>
   <data name="WinStartMenu" xml:space="preserve">
-    <value>Start Menüü</value>
+    <value>Start Menu</value>
   </data>
   <data name="Defender" xml:space="preserve">
     <value>Defender</value>
   </data>
   <data name="Updates" xml:space="preserve">
-    <value>Windowsi Uuendused</value>
+    <value>Windows Updates</value>
   </data>
   <data name="ConfigServices" xml:space="preserve">
-    <value>Muuda Teenuseid</value>
+    <value>Configure Services</value>
   </data>
   <data name="ConfigTelemetry" xml:space="preserve">
-    <value>Muuda Telemeetriat</value>
+    <value>Configure Telemetry</value>
   </data>
   <data name="RepairWindows" xml:space="preserve">
-    <value>Paranda Windowsi</value>
+    <value>Repair Windows</value>
   </data>
   <data name="OldContextMenu" xml:space="preserve">
-    <value>Vana Kontekstimenüüd</value>
+    <value>Old Context Menu</value>
   </data>
   <data name="MicaExplorer" xml:space="preserve">
     <value>Mica Explorer</value>
   </data>
   <data name="Translucent Flyouts" xml:space="preserve">
     <value>Translucent Flyouts</value>
+  </data>
+  <data name="AltTab" xml:space="preserve">
+    <value>Alt Tab</value>
+  </data>
+  <data name="Extract" xml:space="preserve">
+    <value>Extract</value>
+  </data>
+  <data name="DebloatSendTo" xml:space="preserve">
+    <value>Debloat Send To</value>
+  </data>
+  <data name="TakeOwnership" xml:space="preserve">
+    <value>Take Ownership</value>
+  </data>
+  <data name="AddTerminals" xml:space="preserve">
+    <value>Add Terminals</value>
+  </data>
+  <data name="EdgeSwipe" xml:space="preserve">
+    <value>Edge Swipe</value>
+  </data>
+  <data name="AppIconsOnThumbnails" xml:space="preserve">
+    <value>App Icons On Thumbnails</value>
+  </data>
+  <data name="CompactView" xml:space="preserve">
+    <value>Compact View</value>
+  </data>
+  <data name="Gallery" xml:space="preserve">
+    <value>Gallery</value>
+  </data>
+  <data name="QuickAccess" xml:space="preserve">
+    <value>Quick Access</value>
+  </data>
+  <data name="RemovableDrivesInSidebar" xml:space="preserve">
+    <value>Removable Drives In Sidebar</value>
+  </data>
+  <data name="ShortcutIcon" xml:space="preserve">
+    <value>Shortcut Icon</value>
+  </data>
+  <data name="ShortcutName" xml:space="preserve">
+    <value>Shortcut Name</value>
+  </data>
+  <data name="SnapLayouts" xml:space="preserve">
+    <value>Snap Layouts</value>
+  </data>
+  <data name="VisualEffects" xml:space="preserve">
+    <value>Visual Effects</value>
+  </data>
+  <data name="VerboseStatusMessage" xml:space="preserve">
+    <value>Verbose Status Message</value>
+  </data>
+  <data name="OldBatteryFlyout" xml:space="preserve">
+    <value>Old Battery Flyout</value>
+  </data>
+  <data name="OldDateAndTimeFlyout" xml:space="preserve">
+    <value>Old Date And Time Flyout</value>
+  </data>
+  <data name="OldVolumeFlyout" xml:space="preserve">
+    <value>Old Volume Flyout</value>
   </data>
 </root>

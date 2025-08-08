@@ -236,4 +236,7 @@
   <data name="SearchBox.PlaceholderText" xml:space="preserve">
     <value>Search Settings</value>
   </data>
+  <data name="Shell_InterfaceTweaks.Content" xml:space="preserve">
+    <value>Interface Tweaks</value>
+  </data>
 </root>

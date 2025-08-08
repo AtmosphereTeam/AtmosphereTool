@@ -270,7 +270,7 @@ namespace AtmosphereTool.Helpers
             _ => data
         };
 
-        public static string? GetCurrentUserSid()
+        public static string GetCurrentUserSid()
         {
             if (!AdminHelper.IsAdministrator)
             {

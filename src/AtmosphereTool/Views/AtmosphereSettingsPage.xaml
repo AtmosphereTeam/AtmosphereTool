@@ -8,12 +8,14 @@
     xmlns:vm="using:AtmosphereTool.ViewModels"
     xmlns:helpers="using:AtmosphereTool.Helpers"
     mc:Ignorable="d">
-    <ScrollView Padding="0,0,0,20">
+    <ScrollView Padding="10,0,10,24">
         <Grid x:Name="ContentArea">
             <StackPanel>
                 <StackPanel>
                     <controls:SettingsExpander x:Name="AtmosphereConfigHeader" Header="Atmosphere Configuration" Description="Change Atmosphere Configuration">
-                        <FontIcon Glyph="&#xE70F;"/>
+                        <controls:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE70F;"/>
+                        </controls:SettingsExpander.HeaderIcon>
                         <controls:SettingsExpander.Items>
                             <controls:SettingsCard x:Name="DefenderCard" Header="Defender">
                                 <controls:SettingsCard.HeaderIcon>
@@ -74,22 +76,23 @@
                             </controls:SettingsCard>
                             <controls:SettingsCard x:Name="OldContextMenuHeader" Header="Old Context Menus">
                                 <controls:SettingsCard.HeaderIcon>
-                                    <FontIcon Glyph="&#xEE40;"/>
+                                    <FontIcon Glyph="&#xF0E3;"/>
                                 </controls:SettingsCard.HeaderIcon>
                                 <ToggleSwitch x:Name="OldContextMenu" Tag="OldContextMenu" Toggled="ToggleOldContextMenu"/>
                             </controls:SettingsCard>
                         </controls:SettingsExpander.Items>
                     </controls:SettingsExpander>
                     <controls:SettingsExpander x:Name="TroubleshootingHeader" Header="Troubleshooting" Description="Troubleshoot AtmosphereOS / Windows"  Margin="0,5,0,0">
-                        <FontIcon Glyph="&#xE90F;"/>
+                        <controls:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE90F;"/>
+                        </controls:SettingsExpander.HeaderIcon>
                         <controls:SettingsExpander.Items>
                             <controls:SettingsCard x:Name="TranslucentFlyoutsHeader" Header="Translucent Flyouts">
                                 <controls:SettingsCard.HeaderIcon>
                                     <FontIcon Glyph="&#xE7C4;"/>
                                 </controls:SettingsCard.HeaderIcon>
                                 <StackPanel Orientation="Horizontal">
-                                    <ToggleSwitch x:Name="TranslucentFlyouts" Tag="TranslucentFlyouts" Toggled="TranslucentFlyoutsToggle" Margin="0,0,10,0"/>
-                                    <Button x:Name="TFInfo" Tag="TFInfo" Width="44" Height="32">
+                                    <Button x:Name="TFInfo" Tag="TFInfo" Width="44" Height="32" Margin="0,0,10,0">
                                         <Button.Flyout>
                                             <Flyout>
                                                 <StackPanel>
@@ -99,6 +102,7 @@
                                         </Button.Flyout>
                                         <FontIcon Glyph="&#xE946;"/>
                                     </Button>
+                                    <ToggleSwitch x:Name="TranslucentFlyouts" Tag="TranslucentFlyouts" Toggled="TranslucentFlyoutsToggle"/>
                                 </StackPanel>
                             </controls:SettingsCard>
                             <controls:SettingsCard x:Name="MicaExplorerHeader" Header="Translucent Explorer">

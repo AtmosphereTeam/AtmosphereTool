@@ -187,4 +187,134 @@ pigem keelake C-olekud (C-states) BIOS-is</value>
   <data name="UpdateNotifications" xml:space="preserve">
     <value>Windowsi Uuenduste märguanded</value>
   </data>
+  <data name="AltTabCard" xml:space="preserve">
+    <value>Moodne Alt-Tab</value>
+  </data>
+  <data name="ContextMenusExpander" xml:space="preserve">
+    <value>Kontekstimenüüd</value>
+  </data>
+  <data name="ExtractCardDescription" xml:space="preserve">
+    <value>Lisab kontekstimenüüsse ekstraktivaliku</value>
+  </data>
+  <data name="ExtractCardHeader" xml:space="preserve">
+    <value>Ekstrakt</value>
+  </data>
+  <data name="RunWithPriorityCardHeader" xml:space="preserve">
+    <value>Ava Prioriteediga</value>
+  </data>
+  <data name="RunWithPriorityCardDescription" xml:space="preserve">
+    <value>Lisab kontekstimenüüsse prioriteediga käivitamise.</value>
+  </data>
+  <data name="DebloatSendToCard" xml:space="preserve">
+    <value>Debloati saatmise kontekstimenüü</value>
+  </data>
+  <data name="TakeOwnershipCardHeader" xml:space="preserve">
+    <value>Võta Omaks</value>
+  </data>
+  <data name="TakeOwnershipCardDescription" xml:space="preserve">
+    <value>Lisab kontekstimenüüsse võta omaks valiku.</value>
+  </data>
+  <data name="AddTerminalsCardHeader" xml:space="preserve">
+    <value>Lisa Terminaalid</value>
+  </data>
+  <data name="AddTerminalsCardDescription" xml:space="preserve">
+    <value>Lisab kontekstimenüüsse uued valikud nagu käivita terminaal administraatorina</value>
+  </data>
+  <data name="AddTerminalsExtraText" xml:space="preserve">
+    <value>Te saate terminaale muuta siin.</value>
+  </data>
+  <data name="AddTerminalsAll" xml:space="preserve">
+    <value>Lisa Terminaalid</value>
+  </data>
+  <data name="AddTerminalsNoWinTerminal" xml:space="preserve">
+    <value>Lisa Terminallid (ilma Windows Terminal)</value>
+  </data>
+  <data name="AddTerminalsDisable" xml:space="preserve">
+    <value>Eemalda Terminaalid</value>
+  </data>
+  <data name="OldContextMenuHeader" xml:space="preserve">
+    <value>Windows 10 Kontekstimenüüd</value>
+  </data>
+  <data name="EdgeSwipeCardHeader" xml:space="preserve">
+    <value>Edge Swipe</value>
+  </data>
+  <data name="EdgeSwipeCardDescription" xml:space="preserve">
+    <value>Edge Swipe on mõeldud tahvelarvutitele ja sülearvutitele et asendada Win + A või Alt-Tab</value>
+  </data>
+  <data name="FileExplorerCustomizationsExpander" xml:space="preserve">
+    <value>File Explorer Muudatused</value>
+  </data>
+  <data name="AppIconsOnThumbnailsCard" xml:space="preserve">
+    <value>Rakenduse Ikoonid Faili Piltidel</value>
+  </data>
+  <data name="AutomaticFolderDiscoveryCard" xml:space="preserve">
+    <value>Automaatne Kausta Otsimine</value>
+  </data>
+  <data name="CompactViewCard" xml:space="preserve">
+    <value>Kompaktne Vaade</value>
+  </data>
+  <data name="FoldersInThisPCCard" xml:space="preserve">
+    <value>Kaustaded See Arvuti All</value>
+  </data>
+  <data name="GalleryCard" xml:space="preserve">
+    <value>Galerii</value>
+  </data>
+  <data name="QuickAccessCard" xml:space="preserve">
+    <value>Kiirjuurdepääs</value>
+  </data>
+  <data name="RemovableDrivesInSidebarCard" xml:space="preserve">
+    <value>Eemaldatavad Draivid Külgribal</value>
+  </data>
+  <data name="OldFlyoutsExpander" xml:space="preserve">
+    <value>Vanad Menüüd</value>
+  </data>
+  <data name="OldBatteryFlyoutCard" xml:space="preserve">
+    <value>Vana Aku Menüü</value>
+  </data>
+  <data name="OldDateAndTimeFlyout" xml:space="preserve">
+    <value>Vana Päev Ja Aeg Menüü</value>
+  </data>
+  <data name="OldVolumeFlyoutCard" xml:space="preserve">
+    <value>Vana Heli Menüü</value>
+  </data>
+  <data name="ShortcutIconCard" xml:space="preserve">
+    <value>Otsetee Ikoon</value>
+  </data>
+  <data name="ShortcutIconExtraText" xml:space="preserve">
+    <value>Te saate muuta ikooni siin.</value>
+  </data>
+  <data name="ShortcutIconDefault" xml:space="preserve">
+    <value>Tavaline Ikoon</value>
+  </data>
+  <data name="ShortcutIconClassic" xml:space="preserve">
+    <value>Vana Ikoon</value>
+  </data>
+  <data name="ShortcutIconDisable" xml:space="preserve">
+    <value>Keela Ikoon (turvalisuse risk)</value>
+  </data>
+  <data name="ShortcutNameCardHeader" xml:space="preserve">
+    <value>Otsetee Nimi</value>
+  </data>
+  <data name="ShortcutNameCardDescription" xml:space="preserve">
+    <value>Keela automaatne otsetee nimi uue otsetee loomisel.</value>
+  </data>
+  <data name="SnapLayoutsCard" xml:space="preserve">
+    <value>Snap Layouts</value>
+  </data>
+  <data name="VerboseStatusMessageCard" xml:space="preserve">
+    <value>Rohkem Olekuteadeid</value>
+  </data>
+  <data name="VisualEffectsCard" xml:space="preserve">
+    <value>Animatsioonid</value>
+  </data>
+  <data name="VisualEffectsExtraText" xml:space="preserve">
+    <value>Kui soovite animatsioone ise seadistada 
+siis klõpsake allolevat nuppu.</value>
+  </data>
+  <data name="VisualEffectsConfig" xml:space="preserve">
+    <value>Muuda</value>
+  </data>
+  <data name="MoreOptions" xml:space="preserve">
+    <value>Rohkem Seadeid</value>
+  </data>
 </root>

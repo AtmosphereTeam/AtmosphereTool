@@ -11,7 +11,7 @@ try {
         Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
         exit
     }
-    $githubApi = Invoke-RestMethod "https://api.github.com/repos/Goldendraggon/AtmosphereTool/releases" -ErrorAction Stop
+    $githubApi = Invoke-RestMethod "https://api.github.com/repos/AtmosphereTeam/AtmosphereTool/releases" -ErrorAction Stop
     $zipUrl = $githubApi.assets.browser_download_url | Where-Object { $_ -like "*.zip" } | Select-Object -First 1
     if (-not $zipUrl) {
         throw "Failed to find a .zip asset in the release."

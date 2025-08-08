@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="AtmosphereTool.FeaturePages.InterfaceTweaks"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AtmosphereTool.FeaturePages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+    
+    <ScrollView Padding="10,0,10,24">
+        <Grid x:Name="ContentArea">
+            <StackPanel>
+                <controls:SettingsCard x:Name="AltTabCard" Header="Modern Alt-Tab">
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE8AB;"/>
+                    </controls:SettingsCard.HeaderIcon>
+                    <ToggleSwitch x:Name="AltTabToggle"/>
+                </controls:SettingsCard>
+                <controls:SettingsExpander x:Name="ContextMenusExpander" Header="Context Menus" Margin="0,5,0,0">
+                    <controls:SettingsExpander.HeaderIcon>
+                        <FontIcon Glyph="&#xF0E3;"/>
+                    </controls:SettingsExpander.HeaderIcon>
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard x:Name="ExtractCard" Header="Extract" Description="Adds the extract option to context menu.">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xF012;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="ExtractToggle"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard x:Name="RunWithPriorityCard" Header="Run With Priority" Description="Adds the run with priority options to conext menu.">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE8D0;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="RunWithPriorityToggle"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard x:Name="DebloatSendToCard" Header="Debloat Send To Context Menu">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE72D;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <Button x:Name="DebloatSendToButton" Content="Debloat" Click="DebloatSendToClick"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard x:Name="TakeOwnershipCard" Header="Take Ownership" Description="Adds the take ownership option to conext menu.">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE7EF;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="TakeOwnershipToggle"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard x:Name="AddTerminalsCard" Header="Add Terminals" Description="Adds new terminal run as options to conext menu.">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE756;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="AddTerminalsExtra" Width="44" Height="32" Margin="0,0,10,0">
+                                    <Button.Flyout>
+                                        <Flyout>
+                                            <StackPanel>
+                                                <TextBlock x:Name="AddTerminalsExtraText" Style="{ThemeResource BaseTextBlockStyle}" Text="You can configure Terminals here." />
+                                                <StackPanel Orientation="Vertical">
+                                                    <Button x:Name="AddTerminalsAll" Tag="AddTerminalsAll" Click="AddTerminals" Content="Add Terminals" Margin="0,10,0,0"/>
+                                                    <Button x:Name="AddTerminalsNoWinTerminal" Tag="AddTerminalsNoWinTerminal" Click="AddTerminals" Content="Add Terminals (no Windows Terminal)" Margin="0,10,0,0"/>
+                                                    <Button x:Name="AddTerminalsDisable" Tag="AddTerminalsDisable" Click="AddTerminals" Content="Disable Terminals" Margin="0,10,0,0"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                    <FontIcon Glyph="&#xE946;"/>
+                                </Button>
+                                <ToggleSwitch x:Name="AddTerminalsToggle"/>
+                            </StackPanel>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard x:Name="OldContextMenuHeader" Header="Old Context Menus">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xF0E3;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="OldContextMenu"/>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+                <controls:SettingsCard x:Name="EdgeSwipeCard" Header="Edge Swipe" Description="Edge Swipe Is A Feature For Tablets, Laptops To Win + A or Alt + Tab" Margin="0,5,0,0">
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE927;"/>
+                    </controls:SettingsCard.HeaderIcon>
+                    <ToggleSwitch x:Name="EdgeSwipeToggle"/>
+                </controls:SettingsCard>
+                <controls:SettingsExpander x:Name="FileExplorerCustomizationsExpander" Header="File Explorer Customizations" Margin="0,5,0,0">
+                    <controls:SettingsExpander.HeaderIcon>
+                        <FontIcon Glyph="&#xEC50;"/>
+                    </controls:SettingsExpander.HeaderIcon>
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard x:Name="AppIconsOnThumbnailsCard" Header="App Icons On Thumbnails">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE743;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="AppIconsOnThumbnailsToggle"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard x:Name="AutomaticFolderDiscoveryCard" Header="Automatic Folder Discovery">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE838;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="AutomaticFolderDiscoveryToggle"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard x:Name="CompactViewCard" Header="Compact View">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE8A9;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="CompactViewToggle"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard x:Name="FoldersInThisPCCard" Header="Folders In This PC">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE838;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="FoldersInThisPCToggle"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard x:Name="GalleryCard" Header="Gallery">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE8B9;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="GalleryToggle"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard x:Name="QuickAccessCard" Header="Quick Access">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xECA5;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="QuickAccessToggle"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard x:Name="RemovableDrivesInSidebarCard" Header="Removable Drives In Sidebar">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE88E;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="RemovableDrivesInSidebarToggle"/>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+                <controls:SettingsExpander x:Name="OldFlyoutsExpander" Header="Old Flyouts" Margin="0,5,0,0">
+                    <controls:SettingsExpander.HeaderIcon>
+                        <FontIcon Glyph="&#xEB91;"/>
+                    </controls:SettingsExpander.HeaderIcon>
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard x:Name="OldBatteryFlyoutCard" Header="Old Battery Flyout">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE859;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="OldBatteryFlyoutToggle"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard x:Name="OldDateAndTimeFlyout" Header="Old Date And Time Flyout">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xEC92;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="DateAndTimeFlyoutToggle"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard x:Name="OldVolumeFlyoutCard" Header="Old Volume Flyout">
+                            <controls:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE994;"/>
+                            </controls:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="OldVolumeFlyoutToggle"/>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+                <controls:SettingsCard x:Name="ShortcutIconCard" Header="Shortcut Icon" Margin="0,5,0,0">
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE8AD;"/>
+                    </controls:SettingsCard.HeaderIcon>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="ShortcutIconExtra" Width="44" Height="32" Margin="0,0,10,0">
+                            <Button.Flyout>
+                                <Flyout>
+                                    <StackPanel>
+                                        <TextBlock x:Name="ShortcutIconExtraText" Style="{ThemeResource BaseTextBlockStyle}" Text="You can change the icon here." Margin="0,0,0,12" />
+                                        <StackPanel Orientation="Vertical">
+                                            <Button x:Name="ShortcutIconDefault" Tag="ShortcutIconDefault" Click="ShortcutIcon" Content="Default Icon" Margin="0,10,0,0"/>
+                                            <Button x:Name="ShortcutIconClassic" Tag="ShortcutIconClassic" Click="ShortcutIcon" Content="Classic Icon" Margin="0,10,0,0"/>
+                                            <Button x:Name="ShortcutIconDisable" Tag="ShortcutIconDisable" Click="ShortcutIcon" Content="Disable Icon (security risk)" Margin="0,10,0,0"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Flyout>
+                            </Button.Flyout>
+                            <FontIcon Glyph="&#xE946;"/>
+                        </Button>
+                        <ToggleSwitch x:Name="ShortcutIconToggle"/>
+                    </StackPanel>
+                </controls:SettingsCard>
+                <controls:SettingsCard x:Name="ShortcutNameCard" Header="Shortcut Name" Description="Disable The Automatic Shortcut Name When Making A New Shortcut." Margin="0,5,0,0">
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE8BA;"/>
+                    </controls:SettingsCard.HeaderIcon>
+                    <ToggleSwitch x:Name="ShortcutNameToggle"/>
+                </controls:SettingsCard>
+                <controls:SettingsCard x:Name="SnapLayoutsCard" Header="Snap Layouts" Margin="0,5,0,0">
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xECA5;"/>
+                    </controls:SettingsCard.HeaderIcon>
+                    <ToggleSwitch x:Name="SnapLayoutsToggle"/>
+                </controls:SettingsCard>
+                <controls:SettingsCard x:Name="VerboseStatusMessageCard" Header="Verbose Status Message" Margin="0,5,0,0">
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE700;"/>
+                    </controls:SettingsCard.HeaderIcon>
+                    <ToggleSwitch x:Name="VerboseStatusMessageToggle"/>
+                </controls:SettingsCard>
+                <controls:SettingsCard x:Name="VisualEffectsCard" Header="Visual Effects (Animations)" Margin="0,5,0,0">
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xF4A5;"/>
+                    </controls:SettingsCard.HeaderIcon>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="VisualEffectsExtra" Width="44" Height="32" Margin="0,0,10,0">
+                        <Button.Flyout>
+                            <Flyout>
+                                <StackPanel>
+                                        <TextBlock x:Name="VisualEffectsExtraText" Style="{ThemeResource BaseTextBlockStyle}" Text="If you want to configure visual effects (animations) yourself &#x0a;then click the button below." Margin="0,0,0,12" />
+                                        <Button x:Name="VisualEffectsConfig" Tag="VisualEffects" Click="VisualEffects" Content="Configure"/>
+                                </StackPanel>
+                            </Flyout>
+                        </Button.Flyout>
+                        <FontIcon Glyph="&#xE946;"/>
+                        </Button>
+                        <ToggleSwitch x:Name="VisualEffectsToggle"/>
+                    </StackPanel>
+                </controls:SettingsCard>
+                <controls:SettingsCard x:Name="MoreOptions" Header="More Options" IsClickEnabled="True" Click="MoreOptionsClick" Margin="0,5,0,0">
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE712;"/>
+                    </controls:SettingsCard.HeaderIcon>
+                </controls:SettingsCard>
+            </StackPanel>
+        </Grid>
+    </ScrollView>
+</Page>
