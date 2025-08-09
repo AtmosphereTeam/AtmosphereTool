@@ -96,7 +96,7 @@ public sealed partial class GeneralConfig : Page
         var usersid = RegistryHelper.GetCurrentUserSid();
         ToggleRecall.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI", "DisableAIDataAnalysis") == null;
         ToggleCopilot.IsOn = RegistryHelper.Read("HKU", $"{usersid}\\Software\\Policies\\Microsoft\\Windows\\WindowsCopilot", "TurnOffWindowsCopilot") == null;
-        ToggleUpdates.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "AUOptions") != null;
+        ToggleUpdates.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "AUOptions") == null;
         ToggleBackgroundApps.IsOn = RegistryHelper.Read("HKU", $"{usersid}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications", "GlobalUserDisabled") as int? == 1 && RegistryHelper.Read("HKU", $"{usersid}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Search", "BackgroundAppGlobalToggle") as int? == 0;
         ToggleDeliveryOptimizations.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization", "DODownloadMode") as int? == 0;
         ToggleFSOAndGameBar.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Microsoft\\PolicyManager\\default\\ApplicationManagement\\AllowGameDVR", "value") as int? == 0;
@@ -214,15 +214,15 @@ public sealed partial class GeneralConfig : Page
         var toggle = (ToggleSwitch)sender;
         if (toggle.IsOn)
         {
-            LogHelper.LogInfo("[AutomaticUpdates]: Toggled off");
-            ReplaceOption("auto-updates-default", "auto-updates-disable");
-            RegistryHelper.AddOrUpdate("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "AUOptions", "2", "REG_DWORD");
-        }
-        else
-        {
             LogHelper.LogInfo("[AutomaticUpdates]: Toggled on");
             ReplaceOption("auto-updates-disable", "auto-updates-default");
             RegistryHelper.Delete("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "AUOptions");
+        }
+        else
+        {
+            LogHelper.LogInfo("[AutomaticUpdates]: Toggled off");
+            ReplaceOption("auto-updates-default", "auto-updates-disable");
+            RegistryHelper.AddOrUpdate("HKLM", "SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "AUOptions", 2, "REG_DWORD");
         }
     }
 
