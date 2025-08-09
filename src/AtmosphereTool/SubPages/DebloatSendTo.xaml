@@ -9,13 +9,13 @@
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
 
-    <ScrollView Padding="0,0,10,0" Margin="0,10,0,0">
-        <Grid x:Name="ContentArea" Padding="0,0,0,24">
+    <ScrollView Padding="10,0,10,24">
+        <Grid x:Name="ContentArea">
             <StackPanel>
-                <Border BorderBrush="DeepSkyBlue" BorderThickness="1" Padding="10,0,10,0" HorizontalAlignment="Left" CornerRadius="2">
-                    <StackPanel Orientation="Horizontal">
-                        <FontIcon Glyph="&#xE946;" Foreground="DeepSkyBlue"/>
-                        <TextBlock Text="You can hide the options by un-checking them." FontSize="18" Margin="10,0,0,0"/>
+                <Border Background="#222C6f" BorderBrush="#526cfe" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,8,0,8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon Glyph="&#xE946;" Foreground="#526cfe" FontSize="20"/>
+                        <TextBlock x:Name="InfoText" Text="You can disable options by un-checking them." TextWrapping="WrapWholeWords" VerticalAlignment="Center" Foreground="White"/>
                     </StackPanel>
                 </Border>
                 <ItemsControl x:Name="SendToItemsList" ItemsSource="{x:Bind items}" Margin="0,10,0,0">

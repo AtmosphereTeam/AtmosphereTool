@@ -27,7 +27,6 @@
     <None Remove="Scripts\Add Terminals.reg" />
     <None Remove="Scripts\indexConf.cmd" />
     <None Remove="Scripts\Remove all folders in This PC.reg" />
-    <None Remove="Scripts\Remove Terminals Context Menu.reg" />
     <None Remove="Scripts\Restore all folders in This PC.reg" />
     <None Remove="SubPages\DebloatSendTo.xaml" />
     <None Remove="Uninstall\Cleanup.cmd" />
@@ -46,7 +45,7 @@
     <Content Include="Scripts\Remove all folders in This PC.reg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\Remove Terminals Context Menu.reg">
+    <Content Include="Scripts\Remove Terminals.reg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\Restore all folders in This PC.reg">

@@ -317,4 +317,10 @@ then click the button below.</value>
   <data name="MoreOptions" xml:space="preserve">
     <value>More Options</value>
   </data>
+  <data name="DebloatSendToInfoText" xml:space="preserve">
+    <value>You can disable options by un-checking them.</value>
+  </data>
+  <data name="DebloatSendToFinish" xml:space="preserve">
+    <value>Apply</value>
+  </data>
 </root>

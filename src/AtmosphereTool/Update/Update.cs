@@ -4,7 +4,6 @@ using AtmosphereTool.Helpers;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Dispatching;
 using Newtonsoft.Json.Linq;
-using ABI.System.Collections.Generic;
 using CommunityToolkit.WinUI;
 
 namespace AtmosphereTool.Update;

@@ -1,13 +1,12 @@
 using AtmosphereTool.Helpers;
 using AtmosphereTool.Views;
-
+using CommunityToolkit.WinUI.Controls;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using CommunityToolkit.WinUI.Controls;
-
+using System.Diagnostics;
 using WinResLoader = Windows.ApplicationModel.Resources.ResourceLoader;
 
 namespace AtmosphereTool.FeaturePages;
@@ -38,8 +37,8 @@ public sealed partial class InterfaceTweaks : Page
             RegistryHelper.Read("HKLM", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Shell Extensions\\Blocked", "{EE07CEF5-3441-4CFB-870A-4002C724783A}") == null &&
             RegistryHelper.Read("HKLM", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Shell Extensions\\Blocked", "{D12E3394-DE4B-4777-93E9-DF0AC88F8584}") == null;
         RunWithPriorityToggle.IsOn = RegistryHelper.Exists("HKCR", "exefile\\shell\\Priority");
-        TakeOwnershipToggle.IsOn = RegistryHelper.Exists("HKCR", "*\\shell\\TakeOwnership") &&
-            RegistryHelper.Exists("HKCR", "Directory\\shell\\TakeOwnership") &&
+        TakeOwnershipToggle.IsOn = RegistryHelper.Exists("HKCR", "*\\shell\\Take Ownership") &&
+            RegistryHelper.Exists("HKCR", "Directory\\shell\\Take Ownership") &&
             RegistryHelper.Exists("HKCR", "*\\shell\\runas") &&
             RegistryHelper.Exists("HKCR", "Drive\\shell\\runas");
         AddTerminalsToggle.IsOn = RegistryHelper.Exists("HKCR", "TermsRunAsTI");
@@ -58,12 +57,12 @@ public sealed partial class InterfaceTweaks : Page
         OldBatteryFlyoutToggle.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ImmersiveShell", "UseWin32BatteryFlyout") as int? == 1;
         DateAndTimeFlyoutToggle.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ImmersiveShell", "UseWin32TrayClockExperience") as int? == 1;
         OldVolumeFlyoutToggle.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\MTCUVC", "EnableMtcUvc") as int? == 0;
-        ShortcutIconToggle.IsOn = !RegistryHelper.Exists("HKLM", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Icons", "29");
+        ShortcutIconToggle.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Icons", "29") as string != "C:\\Windows\\AtmosphereModules\\Other\\Blank.ico,0";
         ShortcutNameToggle.IsOn = !RegistryHelper.Exists("HKCU", $"{UserSID}\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\NamingTemplates", "ShortcutNameTemplate");
         SnapLayoutsToggle.IsOn = RegistryHelper.Read("HKCU", $"{UserSID}\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "EnableSnapAssistFlyout") as int? == 1 &&
             RegistryHelper.Read("HKCU", $"{UserSID}\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "EnableSnapBar") as int? == 1;
         VerboseStatusMessageToggle.IsOn = RegistryHelper.Read("HKLM", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "verbosestatus") as int? == 1;
-        VisualEffectsToggle.IsOn = RegistryHelper.Read("HKCU", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects", "VisualFXSetting") as int? == 0;
+        VisualEffectsToggle.IsOn = VisualEffectsLoad();
         MoreOptions.Visibility = RegistryHelper.Exists("HKLM", "SOFTWARE\\AME\\Playbooks\\Applied\\{8bbb362c-858b-41d9-a9ea-83a4b9669c43}", "SelectedOptions") ? Visibility.Visible : Visibility.Collapsed;
         // Subscribe
         AltTabToggle.Toggled += AltTabToggled;
@@ -295,6 +294,58 @@ public sealed partial class InterfaceTweaks : Page
         return true;
     }
 
+    private bool VisualEffectsLoad()
+    {
+        var index = 0;
+        var AtmosphereEffectsCount = 0;
+        var WindowsEffectsCount = 0;
+
+        var Effects = new List<(string, string, string)>
+        {
+            ("HKCU", $"{UserSID}\\Control Panel\\Desktop", "FontSmoothing"),
+            ("HKCU", $"{UserSID}\\Control Panel\\Desktop", "UserPreferencesMask"),
+            ("HKCU", $"{UserSID}\\Control Panel\\Desktop", "DragFullWindows"),
+            ("HKCU", $"{UserSID}\\Control Panel\\Desktop\\WindowMetrics", "MinAnimate"),
+            ("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "ListviewAlphaSelect"),
+            ("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "IconsOnly"),
+            ("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "TaskbarAnimations"),
+            ("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "ListviewShadow"),
+            ("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects", "VisualFXSetting"),
+            ("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\DWM", "EnableAeroPeek"),
+            ("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\DWM", "AlwaysHibernateThumbnails")
+        };
+
+        var EffectData = new List<(object, object)>
+        {
+            (2, 2),
+            ("9012038010000000", "9E1E078012000000"),
+            (1, 1),
+            (0, 1),
+            (1, 1),
+            (0, 0),
+            (0, 1),
+            (1, 1),
+            (3, 0),
+            (0, 1),
+            (0, 1)
+        };
+
+        foreach (var effect in Effects)
+        {
+            var data = RegistryHelper.Read(effect.Item1, effect.Item2, effect.Item3);
+            if (data == EffectData[index].Item1)
+            {
+                AtmosphereEffectsCount++;
+            }
+            if (data == EffectData[index].Item2)
+            {
+                WindowsEffectsCount++;
+            }
+            index++;
+        }
+        return WindowsEffectsCount > AtmosphereEffectsCount;
+    }
+
     private void AltTabToggled(object sender, RoutedEventArgs e)
     {
         var toggle = (ToggleSwitch)sender;
@@ -375,24 +426,24 @@ public sealed partial class InterfaceTweaks : Page
         if (toggle.IsOn)
         {
             LogHelper.LogInfo("[InterfaceTweaks]: ContextMenu TakeOwnership Toggled On");
-            RegistryHelper.DeleteKey("HKCR", "*\\shell\\TakeOwnership");
+            RegistryHelper.DeleteKey("HKCR", "*\\shell\\Take Ownership");
             RegistryHelper.DeleteKey("HKCR", "*\\shell\\runas");
-            RegistryHelper.AddOrUpdate("HKCR", "*\\shell\\TakeOwnership", "(Default)", "Take Ownership", "REG_SZ");
-            RegistryHelper.Delete("HKCR", "*\\shell\\TakeOwnership", "Extended");
-            RegistryHelper.AddOrUpdate("HKCR", "*\\shell\\TakeOwnership", "HasLUAShield", "", "REG_SZ");
-            RegistryHelper.AddOrUpdate("HKCR", "*\\shell\\TakeOwnership", "NoWorkingDirectory", "", "REG_SZ");
-            RegistryHelper.AddOrUpdate("HKCR", "*\\shell\\TakeOwnership", "NeverDefault", "", "REG_SZ");
-            RegistryHelper.AddOrUpdate("HKCR", "*\\shell\\TakeOwnership\\command", "(Default)", "PowerShell -windowstyle hidden -command \"Start-Process cmd -ArgumentList '/c takeown /f \\\"%1\\\" && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l & pause' -Verb runAs\"", "REG_SZ");
-            RegistryHelper.AddOrUpdate("HKCR", "*\\shell\\TakeOwnership\\command", "IsolatedCommand", "PowerShell -windowstyle hidden -command \"Start-Process cmd -ArgumentList '/c takeown /f \\\"%1\\\" && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l & pause' -Verb runAs\"", "REG_SZ");
-            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\TakeOwnership", "(Default)", "Take Ownership", "REG_SZ");
-            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\TakeOwnership", "AppliesTo", "NOT (System.ItemPathDisplay:=\"C:\\Users\" OR System.ItemPathDisplay:=\"C:\\ProgramData\" OR System.ItemPathDisplay:=\"C:\\Windows\" OR System.ItemPathDisplay:=\"C:\\Windows\\System32\" OR System.ItemPathDisplay:=\"C:\\Program Files\" OR System.ItemPathDisplay:=\"C:\\Program Files (x86)\")", "REG_SZ");
-            RegistryHelper.Delete("HKCR", "Directory\\shell\\TakeOwnership", "Extended");
-            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\TakeOwnership", "HasLUAShield", "", "REG_SZ");
-            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\TakeOwnership", "NoWorkingDirectory", "", "REG_SZ");
-            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\TakeOwnership", "Position", "middle", "REG_SZ");
-            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\TakeOwnership\\command", "(Default)", "PowerShell -windowstyle hidden -command \"$Y = ($null | choice).Substring(1,1); Start-Process cmd -ArgumentList ('/c takeown /f \\\"%1\\\" /r /d ' + $Y + ' && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l /q & pause') -Verb runAs\"", "REG_SZ");
-            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\TakeOwnership\\command", "IsolatedCommand", "PowerShell -windowstyle hidden -command \"$Y = ($null | choice).Substring(1,1); Start-Process cmd -ArgumentList ('/c takeown /f \\\"%1\\\" /r /d ' + $Y + ' && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l /q & pause') -Verb runAs\"", "REG_SZ");
-            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\TakeOwnership", "(Default)", "Take Ownership", "REG_SZ");
+            RegistryHelper.AddOrUpdate("HKCR", "*\\shell\\Take Ownership", "(Default)", "Take Ownership", "REG_SZ");
+            RegistryHelper.Delete("HKCR", "*\\shell\\Take Ownership", "Extended");
+            RegistryHelper.AddOrUpdate("HKCR", "*\\shell\\Take Ownership", "HasLUAShield", "", "REG_SZ");
+            RegistryHelper.AddOrUpdate("HKCR", "*\\shell\\Take Ownership", "NoWorkingDirectory", "", "REG_SZ");
+            RegistryHelper.AddOrUpdate("HKCR", "*\\shell\\Take Ownership", "NeverDefault", "", "REG_SZ");
+            RegistryHelper.AddOrUpdate("HKCR", "*\\shell\\Take Ownership\\command", "(Default)", "PowerShell -windowstyle hidden -command \"Start-Process cmd -ArgumentList '/c takeown /f \\\"%1\\\" && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l & pause' -Verb runAs\"", "REG_SZ");
+            RegistryHelper.AddOrUpdate("HKCR", "*\\shell\\Take Ownership\\command", "IsolatedCommand", "PowerShell -windowstyle hidden -command \"Start-Process cmd -ArgumentList '/c takeown /f \\\"%1\\\" && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l & pause' -Verb runAs\"", "REG_SZ");
+            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\Take Ownership", "(Default)", "Take Ownership", "REG_SZ");
+            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\Take Ownership", "AppliesTo", "NOT (System.ItemPathDisplay:=\"C:\\Users\" OR System.ItemPathDisplay:=\"C:\\ProgramData\" OR System.ItemPathDisplay:=\"C:\\Windows\" OR System.ItemPathDisplay:=\"C:\\Windows\\System32\" OR System.ItemPathDisplay:=\"C:\\Program Files\" OR System.ItemPathDisplay:=\"C:\\Program Files (x86)\")", "REG_SZ");
+            RegistryHelper.Delete("HKCR", "Directory\\shell\\Take Ownership", "Extended");
+            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\Take Ownership", "HasLUAShield", "", "REG_SZ");
+            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\Take Ownership", "NoWorkingDirectory", "", "REG_SZ");
+            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\Take Ownership", "Position", "middle", "REG_SZ");
+            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\Take Ownership\\command", "(Default)", "PowerShell -windowstyle hidden -command \"$Y = ($null | choice).Substring(1,1); Start-Process cmd -ArgumentList ('/c takeown /f \\\"%1\\\" /r /d ' + $Y + ' && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l /q & pause') -Verb runAs\"", "REG_SZ");
+            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\Take Ownership\\command", "IsolatedCommand", "PowerShell -windowstyle hidden -command \"$Y = ($null | choice).Substring(1,1); Start-Process cmd -ArgumentList ('/c takeown /f \\\"%1\\\" /r /d ' + $Y + ' && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l /q & pause') -Verb runAs\"", "REG_SZ");
+            RegistryHelper.AddOrUpdate("HKCR", "Directory\\shell\\Take Ownership", "(Default)", "Take Ownership", "REG_SZ");
             RegistryHelper.Delete("HKCR", "Drive\\shell\\runas", "Extended");
             RegistryHelper.AddOrUpdate("HKCR", "Drive\\shell\\runas", "HasLUAShield", "", "REG_SZ");
             RegistryHelper.AddOrUpdate("HKCR", "Drive\\shell\\runas", "NoWorkingDirectory", "", "REG_SZ");
@@ -404,7 +455,7 @@ public sealed partial class InterfaceTweaks : Page
         else
         {
             LogHelper.LogInfo("[InterfaceTweaks]: ContextMenu TakeOwnership Toggled Off");
-            RegistryHelper.DeleteKey("HKCR", "*\\shell\\TakeOwnership");
+            RegistryHelper.DeleteKey("HKCR", "*\\shell\\Take Ownership");
             RegistryHelper.DeleteKey("HKCR", "Directory\\shell\\TakeOwnership");
             RegistryHelper.DeleteKey("HKCR", "*\\shell\\runas");
             RegistryHelper.DeleteKey("HKCR", "Drive\\shell\\runas");
@@ -425,7 +476,7 @@ public sealed partial class InterfaceTweaks : Page
             else
             {
                 LogHelper.LogInfo("[InterfaceTweaks]: ContextMenu AddTerminals Toggled Off");
-                var RemoveTerminals = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Scripts\\Add Terminals.reg");
+                var RemoveTerminals = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Scripts\\Remove Terminals.reg");
                 await CommandHelper.StartInCmd($"reg import \"{RemoveTerminals}\"");
             }
         }
@@ -445,7 +496,7 @@ public sealed partial class InterfaceTweaks : Page
                     break;
                 case "AddTerminalsDisable":
                     LogHelper.LogInfo("[InterfaceTweaks]: ContextMenu AddTerminals Toggled Off");
-                    var RemoveTerminals = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Scripts\\Add Terminals.reg");
+                    var RemoveTerminals = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Scripts\\Remove Terminals.reg");
                     await CommandHelper.StartInCmd($"reg import \"{RemoveTerminals}\"");
                     break;
             }
@@ -656,20 +707,35 @@ public sealed partial class InterfaceTweaks : Page
         }
         if (sender is Button button)
         {
+            ShortcutIconToggle.Toggled -= ShortcutIcon;
             switch (button.Tag)
             {
                 case "ShortcutIconDefault":
                     LogHelper.LogInfo("[InterfaceTweaks]: ShortcutIcon Toggled Default");
                     RegistryHelper.Delete("HKLM", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Icons", "29");
+                    ShortcutIconToggle.IsOn = true;
                     break;
                 case "ShortcutIconClassic":
                     LogHelper.LogInfo("[InterfaceTweaks]: ShortcutIcon Toggled Classic");
                     RegistryHelper.AddOrUpdate("HKLM", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Icons", "29", "C:\\Windows\\AtmosphereModules\\Other\\Classic.ico,0", "REG_SZ");
+                    ShortcutIconToggle.IsOn = true;
                     break;
                 case "ShortcutIconDisable":
                     LogHelper.LogInfo("[InterfaceTweaks]: ShortcutIcon Disabled");
                     RegistryHelper.AddOrUpdate("HKLM", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Icons", "29", "C:\\Windows\\AtmosphereModules\\Other\\Blank.ico,0", "REG_SZ");
+                    ShortcutIconToggle.IsOn = false;
                     break;
+            }
+            ShortcutIconToggle.Toggled += ShortcutIcon;
+        }
+        foreach (var process in Process.GetProcessesByName("explorer"))
+        {
+            try
+            {
+                process.Kill();
+            }
+            catch
+            {
             }
         }
     }
@@ -721,39 +787,43 @@ public sealed partial class InterfaceTweaks : Page
         }
     }
 
-    private void VisualEffects(object sender, RoutedEventArgs e)
+    private async void VisualEffects(object sender, RoutedEventArgs e)
     {
         if (sender is ToggleSwitch toggle)
         {
             if (toggle.IsOn)
             {
                 LogHelper.LogInfo("[InterfaceTweaks]: VisualEffects Toggled On");
-                RegistryHelper.AddOrUpdate("HKCU", "Control Panel\\Desktop", "FontSmoothing", 2, "REG_SZ");
-                RegistryHelper.AddOrUpdate("HKCU", "Control Panel\\Desktop", "UserPreferencesMask", "REG_BINARY", "9E1E078012000000");
-                RegistryHelper.AddOrUpdate("HKCU", "Control Panel\\Desktop", "DragFullWindows", 1, "REG_SZ");
-                RegistryHelper.AddOrUpdate("HKCU", "Control Panel\\Desktop\\WindowMetrics", "MinAnimate", 1, "REG_SZ");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "ListviewAlphaSelect", 1, "REG_DWORD");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "IconsOnly", 0, "REG_DWORD");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "TaskbarAnimations", 1, "REG_DWORD");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "ListviewShadow", 1, "REG_DWORD");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects", "VisualFXSetting", 0, "REG_DWORD");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\DWM", "EnableAeroPeek", 1, "REG_DWORD");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\DWM", "AlwaysHibernateThumbnails", 1, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\Control Panel\\Desktop", "FontSmoothing", 2, "REG_SZ");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\Control Panel\\Desktop", "UserPreferencesMask", "REG_BINARY", "9E1E078012000000");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\Control Panel\\Desktop", "DragFullWindows", 1, "REG_SZ");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\Control Panel\\Desktop\\WindowMetrics", "MinAnimate", 1, "REG_SZ");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "ListviewAlphaSelect", 1, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "IconsOnly", 0, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "TaskbarAnimations", 1, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "ListviewShadow", 1, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects", "VisualFXSetting", 0, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\DWM", "EnableAeroPeek", 1, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\DWM", "AlwaysHibernateThumbnails", 1, "REG_DWORD");
             }
             else
             {
                 LogHelper.LogInfo("[InterfaceTweaks]: VisualEffects Toggled Off");
-                RegistryHelper.AddOrUpdate("HKCU", "Control Panel\\Desktop", "FontSmoothing", 2, "REG_SZ");
-                RegistryHelper.AddOrUpdate("HKCU", "Control Panel\\Desktop", "UserPreferencesMask", "REG_BINARY", "9012038010000000");
-                RegistryHelper.AddOrUpdate("HKCU", "Control Panel\\Desktop", "DragFullWindows", 1, "REG_SZ");
-                RegistryHelper.AddOrUpdate("HKCU", "Control Panel\\Desktop\\WindowMetrics", "MinAnimate", 0, "REG_SZ");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "ListviewAlphaSelect", 1, "REG_DWORD");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "IconsOnly", 0, "REG_DWORD");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "TaskbarAnimations", 0, "REG_DWORD");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "ListviewShadow", 1, "REG_DWORD");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects", "VisualFXSetting", 3, "REG_DWORD");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\DWM", "EnableAeroPeek", 0, "REG_DWORD");
-                RegistryHelper.AddOrUpdate("HKCU", "SOFTWARE\\Microsoft\\Windows\\DWM", "AlwaysHibernateThumbnails", 0, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\Control Panel\\Desktop", "FontSmoothing", 2, "REG_SZ");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\Control Panel\\Desktop", "UserPreferencesMask", "REG_BINARY", "9012038010000000");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\Control Panel\\Desktop", "DragFullWindows", 1, "REG_SZ");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\Control Panel\\Desktop\\WindowMetrics", "MinAnimate", 0, "REG_SZ");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "ListviewAlphaSelect", 1, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "IconsOnly", 0, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "TaskbarAnimations", 0, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "ListviewShadow", 1, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects", "VisualFXSetting", 3, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\DWM", "EnableAeroPeek", 0, "REG_DWORD");
+                RegistryHelper.AddOrUpdate("HKCU", $"{UserSID}\\SOFTWARE\\Microsoft\\Windows\\DWM", "AlwaysHibernateThumbnails", 0, "REG_DWORD");
+            }
+            if (await ShowConfirmationDialogAsync("Dialog_Title_LogOff", "Dialog_Content_LogOff"))
+            {
+                await CommandHelper.StartInCmd("logoff");
             }
         }
         if (sender is Button)

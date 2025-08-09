@@ -7,19 +7,30 @@ using Microsoft.UI.Xaml.Controls;
 
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using WinResLoader = Windows.ApplicationModel.Resources.ResourceLoader;
 
 namespace AtmosphereTool.SubPages;
 
 public sealed partial class DebloatSendTo : Page
 {
     public ObservableCollection<SendToItems> items = [];
+
+    private readonly WinResLoader _resourceLoader = WinResLoader.GetForViewIndependentUse("FeaturePages");
+
+    public string GetLocalizedString(string key)
+    {
+        var localized = _resourceLoader.GetString(key);
+        return string.IsNullOrEmpty(localized) ? key : localized;
+    }
     public DebloatSendTo()
     {
-        GetSendToItems();
         InitializeComponent();
+        GetSendToItems();
     }
     private void GetSendToItems()
     {
+        InfoText.Text = GetLocalizedString("DebloatSendToInfoText");
+        Finish.Content = GetLocalizedString("DebloatSendToFinish");
         foreach (var file in Directory.GetFiles(Path.Combine(RegistryHelper.Read("HKCU", $"{RegistryHelper.GetCurrentUserSid()}\\Volatile Environment", "APPDATA") as string ?? Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft\\Windows\\SendTo")))
         {
             items.Add(new() { FileName = Path.GetFileNameWithoutExtension(file), FilePath = file, NotHidden = File.GetAttributes(file) != FileAttributes.Hidden });

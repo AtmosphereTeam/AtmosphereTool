@@ -317,4 +317,10 @@ siis klõpsake allolevat nuppu.</value>
   <data name="MoreOptions" xml:space="preserve">
     <value>Rohkem Seadeid</value>
   </data>
+  <data name="DebloatSendToInfoText" xml:space="preserve">
+    <value>Sa saad valikuid keelata, eemaldades linnukese.</value>
+  </data>
+  <data name="DebloatSendToFinish" xml:space="preserve">
+    <value>Rakenda</value>
+  </data>
 </root>
